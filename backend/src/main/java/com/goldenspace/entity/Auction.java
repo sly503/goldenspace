@@ -34,8 +34,8 @@ public class Auction {
     @UpdateTimestamp
     private Date endDate;
 
-    @Column(name = "start_price")
-    private BigDecimal startPrice;
+    @Column(name = "initial_price")
+    private BigDecimal initialPrice;
 
     @Column(name = "current_price")
     private BigDecimal currentPrice;
@@ -48,7 +48,7 @@ public class Auction {
 
     //@Column(name = "city")
     //private City city;
-    
+
     /*
      * @OneToMany(cascade = CascadeType.ALL, mappedBy = "auction")
      * private Set<Bid> bids;

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Auction } from 'src/app/common/auction';
+import { AuctionService } from 'src/app/services/auction.service';
 
 @Component({
   selector: 'app-auction-list',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuctionListComponent implements OnInit {
 
-  constructor() { }
+  auctions: Auction[] = [];
 
-  ngOnInit(): void {
+  constructor(private auctionService: AuctionService) { }
+
+  ngOnInit() {
+    this.listAuctions();
+  }
+
+  listAuctions() {
+    this.auctionService.getAuctionList().subscribe(
+      data => {
+        this.auctions = data;
+      }
+    )
   }
 
 }
