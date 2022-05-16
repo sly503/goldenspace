@@ -2,19 +2,9 @@ package com.goldenspace.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
+import javax.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import lombok.Data;
 
 @Entity
@@ -22,35 +12,51 @@ import lombok.Data;
 @Data
 public class Auction {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
-@Column(name = "name")
-private String name;
-@Column(name = "description")
-private String description;
-@Column(name = "start_date")
-private Date startDate;
-@Column(name = "end_date")
-private Date endDate;
-@Column(name = "start_price")
-private BigDecimal startPrice;
-@Column(name = "current_price")
-private BigDecimal currentPrice;
-@Column(name = "status")
-private Status status;
-@Column(name = "image_url")
-private String imageUrl;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-@OneToMany(cascade = CascadeType.ALL, mappedBy = "auction")
-private Set<Bid> bids;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
-@ManyToOne
-@JoinColumn(name = "user_id", nullable = false)
-private User user;
+    @Column(name = "name")
+    private String name;
 
-@ManyToOne
-@JoinColumn(name = "category_id", nullable = false)
-private Category category;
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "start_date")
+    @CreationTimestamp
+    private Date startDate;
+
+    @Column(name = "end_date")
+    @UpdateTimestamp
+    private Date endDate;
+
+    @Column(name = "start_price")
+    private BigDecimal startPrice;
+
+    @Column(name = "current_price")
+    private BigDecimal currentPrice;
+
+    @Column(name = "image_url")
+    private String imageUrl;
+
+    @Column(name = "status")
+    private boolean status;
+
+    //@Column(name = "city")
+    //private City city;
+    
+    /*
+     * @OneToMany(cascade = CascadeType.ALL, mappedBy = "auction")
+     * private Set<Bid> bids;
+     * 
+     * @ManyToOne
+     * 
+     * @JoinColumn(name = "user_id", nullable = false)
+     * private User user;
+     */
 
 }

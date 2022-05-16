@@ -1,17 +1,19 @@
 package com.goldenspace.dao;
 
 import com.goldenspace.entity.Auction;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@RepositoryRestResource(collectionResourceRel = "auction", path = "auction")
+@RepositoryRestResource
 public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
+    Page<Auction> findByCategoryId(@RequestParam("id") Long id, Pageable pageable);
 
-    Page<Auction> findByCategory(@RequestParam("category") String category, Pageable pageable);
+    Page<Auction> findByNameContaining(@RequestParam("name") String name, Pageable pageable);
 
+    //Page<Auction> findByCityContaining(@RequestParam("city") String city, Pageable pageable);
+    
 }
