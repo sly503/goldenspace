@@ -1,0 +1,6 @@
+<p *ngFor="let auction of auctions">
+  Ending date: {{auction.endDate}} |  Starting Date: {{auction.startDate}} |
+ Name : {{ auction.name}}: Current Price: {{ auction.currentPrice | currency:'USD'}} |Starting Price{{ auction.initialPrice| currency:'USD'}}
+ Description: {{auction.description}}
+
+</p>

@@ -28,4 +28,3 @@ interface getResponse {
     auctions: Auction[];
   }
 }
-
