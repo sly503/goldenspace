@@ -9,6 +9,7 @@ import { AuctionDetailsComponent } from './components/auction-details/auction-de
 import { AuctionListComponent } from './components/auction-list/auction-list.component';
 import { AuctionSearchComponent } from './components/auction-search/auction-search.component';
 import { AuctionService } from './services/auction.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AuctionService } from './services/auction.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [AuctionService],
   bootstrap: [AppComponent]
