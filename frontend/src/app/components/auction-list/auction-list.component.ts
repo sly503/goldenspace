@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Auction } from 'src/app/common/auction';
 import { AuctionService } from 'src/app/services/auction.service';
 
@@ -8,13 +9,28 @@ import { AuctionService } from 'src/app/services/auction.service';
   styleUrls: ['./auction-list.component.css']
 })
 export class AuctionListComponent implements OnInit {
-
   auctions: Auction[] = [];
+  currentCategoryId: number = 1;
+  previousCategoryId: number = 1;
+  currentCategoryName: string | undefined;
+  searchMode: boolean = false;
 
-  constructor(private auctionService: AuctionService) { }
+  thePageNumber: number = 1;
+  thePageSize: number = 10;
+  theTotalElements: number =0;
+
+
+  constructor(private auctionService: AuctionService,
+    private route: ActivatedRoute) { }
+
 
   ngOnInit() {
-    this.listAuctions();
+    this.route.paramMap.subscribe(() => {
+      this.listAuctions();
+    })
+
+
+
   }
 
   listAuctions() {
@@ -24,5 +40,6 @@ export class AuctionListComponent implements OnInit {
       }
     )
   }
+
 
 }

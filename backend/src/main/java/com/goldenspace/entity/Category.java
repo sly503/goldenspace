@@ -24,13 +24,13 @@ public class Category {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Auction> auctions;
 
-    @Column(name = "parent_id")
-    private Long parentId;
+    //@Column(name = "parent_id")
+    //private Long parentId;
 
     @Column(name = "category_name")
     private String categoryName;
 
-    @Column(name = "category_image_url")
-    private String categoryImageUrl;
+    //@Column(name = "category_image_url")
+    //private String categoryImageUrl;
 
 }
