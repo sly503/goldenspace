@@ -15,43 +15,24 @@ export class AuctionService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getAuctionListPaginate(
-    thePage: number,
-    theSize: number,
-    theCategoryId: number
-  ): Observable<GetResponseAuctions> {
-    const searchUrl =
-      `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}` +
-      `&page=${thePage}&size=${theSize}`;
-    return this.httpClient.get<GetResponseAuctions>(searchUrl);
-  }
 
-  getAuction(theAuctionId: number): Observable<Auction> {
-    const auctionUrl = `${this.baseUrl}/${theAuctionId}`;
-    return this.httpClient.get<Auction>(auctionUrl);
-  }
 
-  getAuctionList(): Observable<Auction[]> {
-    return this.httpClient.get<GetResponseAuctions>(this.baseUrl).pipe(
+  getAuctionList(categoryId: number): Observable<Auction[]> {
+    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
+
+    return this.httpClient.get<GetResponseAuctions>(searchUrl).pipe(
       map(response => response._embedded.auctions)
     );
-  }
-  searchAuctions(theKeyword: string): Observable<Auction[]> {
-    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`;
-    return this.getAuctions(searchUrl);
-  }
+    }
 
-  private getAuctions(searchUrl: string): Observable<Auction[]> {
-    return this.httpClient
-      .get<GetResponseAuctions>(searchUrl)
-      .pipe(map((response) => response._embedded.auctions));
-  }
+
 
   getAuctionCategories(): Observable<Category[]> {
-    return this.httpClient
-      .get<GetResponseAuctionCategory>(this.categoryUrl)
-      .pipe(map((response) => response._embedded.category));
+    return this.httpClient.get<GetResponseCategory>(this.categoryUrl).pipe(
+      map(response => response._embedded.categories)
+    );
   }
+
 }
 
 interface GetResponseAuctions {
@@ -60,8 +41,8 @@ interface GetResponseAuctions {
   };
 }
 
-interface GetResponseAuctionCategory {
+interface GetResponseCategory {
   _embedded: {
-    category: Category[];
+    categories: Category[];
   }
 }

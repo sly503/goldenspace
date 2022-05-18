@@ -8,21 +8,21 @@ import { AuctionService } from 'src/app/services/auction.service';
   styleUrls: ['./auction-category-menu.component.css'],
 })
 export class AuctionCategoryMenuComponent implements OnInit {
-  auctionCategories: Category[] = [];
 
-  constructor(private auctionService: AuctionService) { }
+  auctionCategories!: Category[];
+
+  constructor(private auctionService: AuctionService) {}
 
   ngOnInit(): void {
     this.listAuctionCategories();
   }
-
-  listAuctionCategories(){
-   this.auctionService.getAuctionCategories().subscribe(
-     data => {
-       console.log("product categories" + JSON.stringify(data));
-       this.auctionCategories = data;
-     }
-   );
+  listAuctionCategories() {
+    this.auctionService.getAuctionCategories().subscribe(
+      data => {
+        this.auctionCategories = data;
+      }
+    )
   }
+
 
 }

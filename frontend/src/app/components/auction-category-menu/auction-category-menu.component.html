@@ -1,11 +1,52 @@
-<div class="menu-sidebar-content js-scrollbar1">
-    <nav class="navbar-sidebar">
-        <ul class="list-unstyled navbar-list">
-            <li *ngFor="let TempAuctionCategory of auctionCategories">
-                <a routerLink="/category/{{ TempAuctionCategory.id }}" routerLinkActive="active-link">
-                    {{ TempAuctionCategory.categoryName }}
-                </a>
-            </li>
+<div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+      <a class="navbar-brand" href="#!">Categories</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+          class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Most Popular</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/category/1" routerLinkActive="active-link">Furniture</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/category/2" routerLinkActive="active-link">Jewelry</a></li>
+          <li class="nav-item"><a class="nav-link" href="#!">Art</a></li>
+          <li class="nav-item"><a class="nav-link" href="#!">Cars</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">Cities</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#!">All Products</a></li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+              <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+            </ul>
+          </li>
         </ul>
-    </nav>
+        <form class="d-flex">
+          <button class="btn btn-outline-dark" type="submit">
+            <i class="bi-cart-fill me-1"></i>
+            Total Invested
+            <span class="badge bg-dark text-white ms-1 rounded-pill">2540</span>
+          </button>
+        </form>
+        <form class="d-flex">
+          <button class="btn btn-outline-dark" type="submit">
+            <i class="bi-cart-fill me-1"></i>
+            Active Auctions
+            <span class="badge bg-dark text-white ms-1 rounded-pill">6</span>
+          </button>
+        </form>
+        <form class="d-flex">
+          <button class="btn btn-outline-dark" type="submit">
+            <i class="bi-cart-fill me-1"></i>
+            Alerts
+            <span class="badge bg-dark text-white-50 ms-1 rounded-pill">!</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
 </div>
