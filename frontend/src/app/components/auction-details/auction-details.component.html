@@ -1,1 +1,55 @@
-<p>auction-details works!</p>
+
+  <div class="container pb-5">
+      <div class="row">
+
+          <div class="col-lg-5 mt-5">
+              <div class="card mb-3">
+                  <img class="card-img img-fluid" src="https://assets.ltkcontent.com/images/98876/mens-luxury-goods_0066f46bde.jpg" alt="Card image cap" id="product-detail">
+              </div>
+
+          </div>
+          <!-- col end -->
+          <div class="col-lg-7 mt-5">
+              <div class="card">
+                  <div class="card-body">
+                      <h1 class="h2">{{auction.name}}</h1>
+                      <p class="h3 py-2">{{auction.currentPrice}}</p>
+                      <p class="h3 py-5">{{auction.initialPrice}}</p>
+                      <p class="py-2">
+                          <i class="fa fa-star text-warning"></i>
+                          <i class="fa fa-star text-warning"></i>
+                          <i class="fa fa-star text-warning"></i>
+                          <i class="fa fa-star text-warning"></i>
+                          <i class="fa fa-star text-secondary"></i>
+                          <span class="list-inline-item text-dark">Rating 4.8 | 36 Comments</span>
+                      </p>
+                      <ul class="list-inline">
+                          <li class="list-inline-item">
+                              <h6>{{auction.startDate}}</h6>
+                          </li>
+                          <li class="list-inline-item">
+                              <p class="text-muted"><strong>{{auction.endDate}}</strong></p>
+                          </li>
+                      </ul>
+
+                      <h6>Description:</h6>
+                      <p>{{auction.description}}</p>
+
+                      <form action="" method="GET">
+                          <input type="hidden" name="product-title" value="Activewear">
+                          <input type="hidden" name="product-price" value="25.00">
+                          <div class="row pb-3">
+                              <div class="col d-grid">
+                                  <button type="submit" class="btn btn-outline-warning bg-dark" name="submit" value="buy">BID</button>
+                              </div>
+                              <div class="col d-grid">
+                                <button type="submit" class="btn btn-outline-dark" name="submit" value="buy">Back to auctions</button>
+                            </div>
+                          </div>
+                      </form>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>

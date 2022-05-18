@@ -9,6 +9,7 @@ import { Category } from '../common/category';
   providedIn: 'root',
 })
 export class AuctionService {
+
   private baseUrl = 'http://localhost:8080/api/auctions';
   private categoryUrl = 'http://localhost:8080/api/categories';
 
@@ -35,6 +36,11 @@ export class AuctionService {
     return this.httpClient
       .get<GetResponseAuctions>(searchUrl)
       .pipe(map((response) => response._embedded.auctions));
+  }
+
+  getAuction(theAuctionId: number): Observable<Auction> {
+    const url = `${this.baseUrl}/${theAuctionId}`;
+    return this.httpClient.get<Auction>(url);
   }
 }
 

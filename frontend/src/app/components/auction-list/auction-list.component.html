@@ -1,17 +1,21 @@
-<section class="py-5">
+
   <div class="container px-4 px-lg-5 mt-5">
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
       <div *ngFor="let auction of auctions" class="col mb-5">
         <div class="card h-100">
           <!-- Product image-->
+          <a routerLink="/auctions/{{auction.id}}">
           <img class="card-img-top"
             src="https://robbreport.com/wp-content/uploads/2022/02/20211215_LOUIS_VUITTON_BRAVERY_II_COLLIER_MULTIPIN_V3.gif?w=1000"
             alt="..." />
+          </a>
           <!-- Product details-->
           <div class="card-body p-4">
             <div class="text-center">
               <!-- Product name-->
+              <a routerLink="/auctions/{{auction.id}}">
               <h5 class="fw-bolder">{{ auction.name}}</h5>
+              </a>
               <h5 class="fw-normal">{{auction.description}}</h5>
               <!-- Product price-->
               Current Price: {{ auction.currentPrice | currency:'USD'}} | Starting Price: {{ auction.initialPrice|
@@ -32,4 +36,3 @@
     </div>
     </div>
   </div>
-</section>
