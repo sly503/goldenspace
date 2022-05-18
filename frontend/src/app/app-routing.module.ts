@@ -5,6 +5,7 @@ import { AuctionListComponent } from './components/auction-list/auction-list.com
 import { AuctionSearchComponent } from './components/auction-search/auction-search.component';
 
 const routes: Routes = [
+  {path: 'search/:keyword', component: AuctionListComponent},
   {path: 'category/:id', component: AuctionListComponent},
   {path: 'category', component: AuctionListComponent},
   {path: 'auctions', component: AuctionListComponent},

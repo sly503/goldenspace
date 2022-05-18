@@ -16,15 +16,25 @@ export class AuctionService {
 
   getAuctionList(categoryId: number): Observable<Auction[]> {
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
-    return this.httpClient
-      .get<GetResponseAuctions>(searchUrl)
-      .pipe(map((response) => response._embedded.auctions));
+    return this.getAuctions(searchUrl);
+
   }
 
   getAuctionCategories(): Observable<Category[]> {
     return this.httpClient
       .get<GetResponseCategory>(this.categoryUrl)
       .pipe(map((response) => response._embedded.categories));
+  }
+
+  searchAuctions(theKeyword: string): Observable<Auction[]> {
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`;
+    return this.getAuctions(searchUrl);
+  }
+
+  private getAuctions(searchUrl: string): Observable<Auction[]> {
+    return this.httpClient
+      .get<GetResponseAuctions>(searchUrl)
+      .pipe(map((response) => response._embedded.auctions));
   }
 }
 

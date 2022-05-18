@@ -4,17 +4,14 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-auction-search',
   templateUrl: './auction-search.component.html',
-  styleUrls: ['./auction-search.component.css']
+  styleUrls: ['./auction-search.component.css'],
 })
 export class AuctionSearchComponent implements OnInit {
+  constructor(private router: Router) {}
 
-  constructor(private router:Router) { }
-
-  ngOnInit(): void {
+  ngOnInit(): void {}
+  doSearch(value: String) {
+    console.log(value);
+    this.router.navigateByUrl(`/search/${value}`);
   }
-  doSearch(value:String){
-    console.log(value)
-    this.router.navigateByUrl(`/search/${value}`)
-  }
-
 }

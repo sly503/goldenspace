@@ -24,6 +24,12 @@
           </div>
         </div>
       </div>
+      <div>
+        <!-- message if no auctions are found -->
+        <div *ngIf="auctions.length === 0" class="col-12 text-center">
+          <h3>No auctions found</h3>
+      </div>
+    </div>
     </div>
   </div>
 </section>

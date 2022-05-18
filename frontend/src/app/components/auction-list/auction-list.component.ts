@@ -11,6 +11,8 @@ import { AuctionService } from 'src/app/services/auction.service';
 export class AuctionListComponent implements OnInit {
   auctions: Auction[] = [];
   currentCategoryId!: number;
+  currentCategoryName: any;
+  searchMode!: boolean;
 
   constructor(
     private auctionService: AuctionService,
@@ -24,15 +26,37 @@ export class AuctionListComponent implements OnInit {
   }
 
   listAuctions() {
+    this.searchMode = this.route.snapshot.paramMap.has('keyword');
+    if (this.searchMode) {
+      this.handleSearchAuctions();
+    } else {
+      this.handleListAuctions();
+    }
+  }
+
+
+  handleListAuctions() {
+
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
     if (hasCategoryId) {
       this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!;
+      this.currentCategoryName = this.route.snapshot.paramMap.get('name');
     }else {
       this.currentCategoryId = 1;
+      this.currentCategoryName = 'Default';
     }
 
     this.auctionService.getAuctionList(this.currentCategoryId).subscribe((data) => {
       this.auctions = data;
     });
+
   }
+
+  handleSearchAuctions() {
+    const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
+    this.auctionService
+      .searchAuctions(theKeyword)
+      .subscribe((data) => (this.auctions = data));
+  }
+
 }
