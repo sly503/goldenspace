@@ -43,19 +43,18 @@ public class Auction {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "status")
+    @Column
     private boolean status;
 
     //@Column(name = "city")
     //private City city;
-
     /*
      * @OneToMany(cascade = CascadeType.ALL, mappedBy = "auction")
      * private Set<Bid> bids;
      * 
      * @ManyToOne
      * 
-     * @JoinColumn(name = "user_id", nullable = false)
+     * @JoinColumn(ame = "user_id", nullable = false)
      * private User user;
      */
 
