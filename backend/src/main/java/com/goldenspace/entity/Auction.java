@@ -48,14 +48,13 @@ public class Auction {
 
     //@Column(name = "city")
     //private City city;
-//megiiii
     /*
      * @OneToMany(cascade = CascadeType.ALL, mappedBy = "auction")
      * private Set<Bid> bids;
      * 
      * @ManyToOne
      * 
-     * @JoinColumn(name = "user_id", nullable = false)
+     * @JoinColumn(ame = "user_id", nullable = false)
      * private User user;
      */
 
