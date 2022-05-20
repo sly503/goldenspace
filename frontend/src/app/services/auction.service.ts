@@ -15,6 +15,19 @@ export class AuctionService {
 
   constructor(private httpClient: HttpClient) {}
 
+
+
+  getAuctionListPaginate(thePage: number,
+    thePageSize: number,
+    theCategoryId: number): Observable<GetResponseAuctions> {
+
+    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`
+      + `&page=${thePage}&size=${thePageSize}`;
+
+    return this.httpClient.get<GetResponseAuctions>(searchUrl);
+  }
+
+
   getAuctionList(categoryId: number): Observable<Auction[]> {
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
     return this.getAuctions(searchUrl);
@@ -48,6 +61,12 @@ interface GetResponseAuctions {
   _embedded: {
     auctions: Auction[];
   };
+  page: {
+    size: number,
+    totalElements: number,
+    totalPages: number,
+    number: number
+  }
 }
 
 interface GetResponseCategory {

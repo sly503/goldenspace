@@ -28,11 +28,21 @@
           </div>
         </div>
       </div>
+      <!-- pagination -->
+
       <div>
         <!-- message if no auctions are found -->
         <div *ngIf="auctions.length === 0" class="col-12 text-center">
           <h3>No auctions found</h3>
       </div>
+
+    </div>
+    <div class="col-12">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize" [collectionSize]="theTotalElements"></ngb-pagination>
+        </ul>
+      </nav>
     </div>
     </div>
   </div>

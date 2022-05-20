@@ -11,6 +11,7 @@ import { AuctionSearchComponent } from './components/auction-search/auction-sear
 import { AuctionService } from './services/auction.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
