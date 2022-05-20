@@ -20,6 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AuctionListComponent,
     AuctionSearchComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
