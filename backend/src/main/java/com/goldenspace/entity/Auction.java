@@ -2,6 +2,8 @@ package com.goldenspace.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -46,11 +48,13 @@ public class Auction {
     @Column
     private boolean status;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "auction")
+    private List<Bid> bids;
+
     //@Column(name = "city")
     //private City city;
     /*
-     * @OneToMany(cascade = CascadeType.ALL, mappedBy = "auction")
-     * private Set<Bid> bids;
+
      * 
      * @ManyToOne
      * 

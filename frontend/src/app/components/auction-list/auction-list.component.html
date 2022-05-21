@@ -37,12 +37,13 @@
       </div>
 
     </div>
+
+    </div>
     <div class="col-12">
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
-          <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize" [collectionSize]="theTotalElements"></ngb-pagination>
+          <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize" [collectionSize]="theTotalElements" (pageChange)="listAuctions()"></ngb-pagination>
         </ul>
       </nav>
-    </div>
     </div>
   </div>
