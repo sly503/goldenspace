@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import lombok.Data;
@@ -47,9 +50,21 @@ public class Auction {
 
     @Column
     private boolean status;
-
+    
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "auction")
+    @JsonIgnore
     private List<Bid> bids;
+
+
+    //add bid
+    public void addBid(Bid bid) {
+        //if bid is higher than current price and bid is not null
+        if (bid.getPrice().compareTo(this.currentPrice) > 0 && bid.getPrice() != null) {
+            this.currentPrice = bid.getPrice();
+            bids.add(bid);
+        }
+    }
 
     //@Column(name = "city")
     //private City city;
