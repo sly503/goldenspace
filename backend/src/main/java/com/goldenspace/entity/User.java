@@ -43,10 +43,10 @@ public class User {
 
     /*
      * @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-     * private Set<Bid> bids;
+     * private List<Bid> bids;
      * 
      * @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-     * private Set<Auction> auctions;
+     * private List<Auction> auctions;
      */
 
 }

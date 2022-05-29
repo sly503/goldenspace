@@ -11,6 +11,18 @@ import { AuctionSearchComponent } from './components/auction-search/auction-sear
 import { AuctionService } from './services/auction.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CrudformComponent } from './components/crudform/crudform.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { DialogComponent } from './components/crudform/dialog/dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -18,7 +30,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AuctionCategoryMenuComponent,
     AuctionDetailsComponent,
     AuctionListComponent,
-    AuctionSearchComponent
+    AuctionSearchComponent,
+    CrudformComponent,
+    DialogComponent,
   ],
 
   imports: [
@@ -26,10 +40,25 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgbModule
+    NgbModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule,
   ],
-  providers: [AuctionService, AuctionCategoryMenuComponent, AuctionDetailsComponent, AuctionListComponent, AuctionSearchComponent],
-  bootstrap: [AppComponent]
+  providers: [
+    AuctionService,
+    AuctionCategoryMenuComponent,
+    AuctionDetailsComponent,
+    AuctionListComponent,
+    AuctionSearchComponent,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
-
+export class AppModule {}

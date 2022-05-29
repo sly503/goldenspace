@@ -14,7 +14,7 @@ public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
     Page<Auction> findByNameContaining(@RequestParam("name") String name, Pageable pageable);
 
-    Page<Auction> findByDescriptionContaining(@RequestParam("description") String description, Pageable pageable);
+    //Page<Auction> findByDescriptionContaining(@RequestParam("description") String description, Pageable pageable);
     //Page<Auction> findByCityContaining(@RequestParam("city") String city, Pageable pageable);
     
 }

@@ -11,7 +11,6 @@ import com.goldenspace.entity.Bid;
 import org.springframework.stereotype.Service;
 
 @Service
-
 public class AuctionService {
 
     AuctionRepository auctionRepository;
@@ -33,4 +32,5 @@ public class AuctionService {
         auction.addBid(newBid);
         return auctionRepository.save(auction);
     }
+    
 }

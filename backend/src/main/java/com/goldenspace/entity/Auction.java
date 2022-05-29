@@ -48,8 +48,8 @@ public class Auction {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column
-    private boolean status;
+    //@Column
+    //private boolean status;
     
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "auction")

@@ -34,6 +34,11 @@ public class Bid {
     @CreationTimestamp
     private Date bidTime;
 
+
+    public Bid() {
+        this.bidTime = new Date();
+    }
+    
     public void setPrice(BigDecimal price) {
         this.price = price;
     }

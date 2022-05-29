@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { Auction } from '../common/auction';
 import { HttpClient } from '@angular/common/http';
 import { Category } from '../common/category';
+import { Bid } from '../common/bid';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +34,18 @@ export class AuctionService {
     return this.getAuctions(searchUrl);
 
   }
+
+  getBidList(auctionId: number): Observable<Bid[]> {
+    const searchUrl = `${this.baseUrl}/${auctionId}/bids`;
+    return this.getBids(searchUrl);
+  }
+
+  getBids(searchUrl: string): Observable<Bid[]> {
+    return this.httpClient
+      .get<GetResponseBids>(searchUrl)
+      .pipe(map((response) => response._embedded.bids));
+  }
+
 
   getAuctionCategories(): Observable<Category[]> {
     return this.httpClient
@@ -74,3 +87,14 @@ interface GetResponseCategory {
     categories: Category[];
   };
 }
+// get a response of bids
+interface GetResponseBids {
+  _embedded: {
+    bids: Bid[];
+  };
+}
+
+
+
+
+
