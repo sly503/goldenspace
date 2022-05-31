@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Auction } from 'src/app/common/auction';
 import { Bid } from 'src/app/common/bid';
 import { AuctionService } from 'src/app/services/auction.service';
+import { NgbModal,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-auction-details',
@@ -13,10 +14,14 @@ export class AuctionDetailsComponent implements OnInit {
   auction: Auction = new Auction;
   //list of bids
   bids: Bid[] = [];
+  bid: Bid = new Bid();
+  closeResult!: string;
 
   constructor(
     private auctionService: AuctionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modalService: NgbModal
+
 
   ) {}
 
@@ -51,5 +56,28 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
 
+
+
+  //add bid
+  addBid(bid: Bid) {
+    const theAuctionId: number = +this.route.snapshot.paramMap.get('id')!;
+
+    this.auctionService.addBid(theAuctionId, bid).subscribe((data) => {
+      this.bid = data;
+      alert('Bid Placed Successfully');
+    });
+  }
+
+  //open modal
+  open(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  getDismissReason(reason: any) {
+    throw new Error('Method not implemented.');
+  }
 
 }

@@ -13,6 +13,7 @@ export class AuctionService {
 
   private baseUrl = 'http://localhost:8080/api/auctions';
   private categoryUrl = 'http://localhost:8080/api/categories';
+  private PostUrl = 'http://localhost:8080/auction/addBid';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -67,6 +68,11 @@ export class AuctionService {
   getAuction(theAuctionId: number): Observable<Auction> {
     const url = `${this.baseUrl}/${theAuctionId}`;
     return this.httpClient.get<Auction>(url);
+  }
+
+  addBid(auctionId: number, bid: Bid): Observable<Bid> {
+    const url = `${this.PostUrl}/${auctionId}`;
+    return this.httpClient.post<Bid>(url, bid);
   }
 }
 
