@@ -4,6 +4,8 @@ import { Auction } from 'src/app/common/auction';
 import { Bid } from 'src/app/common/bid';
 import { AuctionService } from 'src/app/services/auction.service';
 import { NgbModal,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { BidRecord } from 'src/app/common/bid-record';
+import { RecordsService } from 'src/app/services/records.service';
 
 @Component({
   selector: 'app-auction-details',
@@ -19,6 +21,7 @@ export class AuctionDetailsComponent implements OnInit {
 
   constructor(
     private auctionService: AuctionService,
+    private recordService: RecordsService,
     private route: ActivatedRoute,
     private modalService: NgbModal
 
@@ -61,7 +64,8 @@ export class AuctionDetailsComponent implements OnInit {
   //add bid
   addBid(bid: Bid) {
     const theAuctionId: number = +this.route.snapshot.paramMap.get('id')!;
-
+    const bidRecord = new BidRecord(bid);
+    this.recordService.addBidRecord(bidRecord);
 
     this.handleBids();
 

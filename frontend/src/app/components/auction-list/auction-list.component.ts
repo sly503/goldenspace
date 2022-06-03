@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Auction } from 'src/app/common/auction';
+import { Auctionrecord } from 'src/app/common/auctionrecord';
+import { BidRecord } from 'src/app/common/bid-record';
 import { AuctionService } from 'src/app/services/auction.service';
+import { RecordsService } from 'src/app/services/records.service';
 
 @Component({
   selector: 'app-auction-list',
@@ -21,7 +24,8 @@ export class AuctionListComponent implements OnInit {
 
   constructor(
     private auctionService: AuctionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private recordService: RecordsService
   ) {}
 
   ngOnInit() {
@@ -83,7 +87,8 @@ export class AuctionListComponent implements OnInit {
   }
 
   takePart(auction: Auction) {
-    console.log(`take part in auction ${auction.id}`);
-    console.log(`take part in auction ${auction.name}`);
+    const auctionRecord = new Auctionrecord(auction);
+    this.recordService.addAuctionRecord(auctionRecord);
   }
+
 }
