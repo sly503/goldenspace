@@ -57,11 +57,11 @@ public class Auction {
     private List<Bid> bids;
 
 
-    //add bid
     public void addBid(Bid bid) {
-        //if bid is higher than current price and bid is not null
-        if (bid.getPrice().compareTo(this.currentPrice) > 0 && bid.getPrice() != null) {
-            this.currentPrice = bid.getPrice();
+        //if bid is not null and bid is not equal or lower than current price
+        if (bid != null && bid.getPrice().compareTo(currentPrice) > 0) {
+            currentPrice = bid.getPrice();
+            bid.setAuction(this);
             bids.add(bid);
         }
     }

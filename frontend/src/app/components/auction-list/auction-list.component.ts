@@ -81,4 +81,9 @@ export class AuctionListComponent implements OnInit {
       this.theTotalElements = data.page.totalElements;
     };
   }
+
+  takePart(auction: Auction) {
+    console.log(`take part in auction ${auction.id}`);
+    console.log(`take part in auction ${auction.name}`);
+  }
 }

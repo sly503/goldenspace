@@ -62,10 +62,15 @@ export class AuctionDetailsComponent implements OnInit {
   addBid(bid: Bid) {
     const theAuctionId: number = +this.route.snapshot.paramMap.get('id')!;
 
+
+    this.handleBids();
+
     this.auctionService.addBid(theAuctionId, bid).subscribe((data) => {
       this.bid = data;
       alert('Bid Placed Successfully');
-    });
+      });
+
+
   }
 
   //open modal
@@ -77,7 +82,7 @@ export class AuctionDetailsComponent implements OnInit {
     });
   }
   getDismissReason(reason: any) {
-    throw new Error('Method not implemented.');
+    throw new Error('Bid is lower than current price.');
   }
 
 }
