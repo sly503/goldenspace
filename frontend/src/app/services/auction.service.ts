@@ -71,7 +71,7 @@ export class AuctionService {
   }
 
   addBid(auctionId: number, bid: Bid): Observable<Bid> {
-    const url = `${this.PostUrl}/${auctionId}`;
+    const url = `${this.PostUrl}/${auctionId}`
     return this.httpClient.post<Bid>(url, bid);
   }
 }

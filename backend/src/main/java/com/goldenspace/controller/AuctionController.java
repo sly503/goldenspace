@@ -19,7 +19,10 @@ public class AuctionController {
     }
 
     @PostMapping("/auction/addBid/{id}")
-    public Auction addBid(@PathVariable Long id, @RequestBody BidDto bid) {
-        return auctionService.addBid(id, bid);
+    public boolean addBid(@PathVariable Long id, @RequestBody BidDto bid) {
+        if (auctionService.addBid(id, bid) != null) {
+            return true;
+        }
+        else return false;
     }
 }

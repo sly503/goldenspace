@@ -6,11 +6,6 @@ export class Auctionrecord {
   imageUrl!: string;
   currentBid!: number;
 
-
-
-
-
-
   constructor(auction: Auction) {
     this.id = auction.id;
     this.name = auction.name;

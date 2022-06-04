@@ -33,7 +33,7 @@ export class AuctionDetailsComponent implements OnInit {
       this.handleAuctionDetails();
     });
     this.route.paramMap.subscribe(() => {
-      this.handleBids();
+      this.getBids();
     }
     );
 
@@ -50,31 +50,27 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   //list of bids for the auction
-  handleBids() {
+  getBids() {
     const theAuctionId: number = +this.route.snapshot.paramMap.get('id')!;
+    this.bids = [];
     this.auctionService.getBidList(theAuctionId).subscribe((data) => {
       this.bids = data;
-    }
-    );
+    });
   }
-
-
-
 
   //add bid
   addBid(bid: Bid) {
     const theAuctionId: number = +this.route.snapshot.paramMap.get('id')!;
     const bidRecord = new BidRecord(bid);
+
+    // Update the total invest
     this.recordService.addBidRecord(bidRecord);
 
-    this.handleBids();
-
+    // Save to database
     this.auctionService.addBid(theAuctionId, bid).subscribe((data) => {
       this.bid = data;
-      alert('Bid Placed Successfully');
-      });
-
-
+      this.getBids();
+    });
   }
 
   //open modal

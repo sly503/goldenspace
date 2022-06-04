@@ -45,16 +45,49 @@ public class Auction {
     @Column(name = "current_price")
     private BigDecimal currentPrice;
 
+    @Column(name = "sold_price")
+    private BigDecimal soldPrice;
+
     @Column(name = "image_url")
     private String imageUrl;
 
-    //@Column
-    //private boolean status;
-    
-    
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    public static Status Status;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "auction")
     @JsonIgnore
     private List<Bid> bids;
+
+
+    public BigDecimal getSoldPrice() {
+        return soldPrice;
+    }
+
+
+    public void setSoldPrice(BigDecimal soldPrice) {
+        this.soldPrice = soldPrice;
+    }
+
+
+    public Status getStatus() {
+        return Status;
+    }
+
+
+    public void setStatus(Status status) {
+        this.Status = status;
+    }
+
+
+    public List<Bid> getBids() {
+        return bids;
+    }
+
+
+    public void setBids(List<Bid> bids) {
+        this.bids = bids;
+    }
 
 
     public void addBid(Bid bid) {
@@ -65,6 +98,13 @@ public class Auction {
             bids.add(bid);
         }
     }
+
+    
+
+
+
+
+    
 
     //@Column(name = "city")
     //private City city;
