@@ -73,6 +73,17 @@ export class AuctionDetailsComponent implements OnInit {
     });
   }
 
+  //close auction
+  closeAuction() {
+    const theAuctionId: number = +this.route.snapshot.paramMap.get('id')!;
+    this.auctionService.closeAuction(theAuctionId).subscribe((data) => {
+      this.auction = data;
+    });
+  }
+
+
+
+
   //open modal
   open(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {

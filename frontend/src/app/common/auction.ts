@@ -7,5 +7,5 @@ export class Auction {
     initialPrice!: number;
     currentPrice!: number;
     imageUrl!: string;
-    status!: boolean;
+    status!: string;
   }

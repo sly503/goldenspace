@@ -74,6 +74,13 @@ export class AuctionService {
     const url = `${this.PostUrl}/${auctionId}`
     return this.httpClient.post<Bid>(url, bid);
   }
+
+  //close auction
+  closeAuction(theAuctionId: number): Observable<Auction> {
+    const url = `${this.baseUrl}/close/${theAuctionId}`;
+    return this.httpClient.put<Auction>(url, theAuctionId);
+  }
+
 }
 
 interface GetResponseAuctions {

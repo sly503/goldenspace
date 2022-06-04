@@ -53,7 +53,11 @@
                         </div>
                         <div class="col d-grid">
                           <a class="btn btn-outline-dark mt-auto" routerLink="/auctions/">Back to auctions</a>
-                        </div>
+                        </div>  <br>
+                        <!--remove auction -->
+                        <div class="col d-grid">
+                          <button class="btn btn-outline-danger bg-dark" (click)="closeAuction()">
+                            <i id="bid-icon" class="fa fa-trash"></i>Close auction </button>
                       </div>
                     </div>
                   </div>

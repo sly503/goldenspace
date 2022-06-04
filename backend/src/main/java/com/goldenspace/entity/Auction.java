@@ -53,7 +53,9 @@ public class Auction {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    public static Status Status;
+    //default value is active
+    private Status status = Status.ACTIVE;
+
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "auction")
     @JsonIgnore
@@ -71,12 +73,12 @@ public class Auction {
 
 
     public Status getStatus() {
-        return Status;
+        return status;
     }
 
 
     public void setStatus(Status status) {
-        this.Status = status;
+        this.status = status;
     }
 
 
