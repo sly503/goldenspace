@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.goldenspace.enums.Status;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -53,47 +54,39 @@ public class Auction {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    //default value is active
+    // default value is active
     private Status status = Status.ACTIVE;
-
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "auction")
     @JsonIgnore
     private List<Bid> bids;
 
-
     public BigDecimal getSoldPrice() {
         return soldPrice;
     }
-
 
     public void setSoldPrice(BigDecimal soldPrice) {
         this.soldPrice = soldPrice;
     }
 
-
     public Status getStatus() {
         return status;
     }
-
 
     public void setStatus(Status status) {
         this.status = status;
     }
 
-
     public List<Bid> getBids() {
         return bids;
     }
-
 
     public void setBids(List<Bid> bids) {
         this.bids = bids;
     }
 
-
     public void addBid(Bid bid) {
-        //if bid is not null and bid is not equal or lower than current price
+        // if bid is not null and bid is not equal or lower than current price
         if (bid != null && bid.getPrice().compareTo(currentPrice) > 0) {
             currentPrice = bid.getPrice();
             bid.setAuction(this);
@@ -101,17 +94,10 @@ public class Auction {
         }
     }
 
-    
-
-
-
-
-    
-
-    //@Column(name = "city")
-    //private City city;
+    // @Column(name = "city")
+    // private City city;
     /*
-
+     * 
      * 
      * @ManyToOne
      * 

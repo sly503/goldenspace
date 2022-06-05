@@ -1,4 +1,4 @@
-package com.goldenspace.entity;
+package com.goldenspace.enums;
 
 public enum Status {
     ACTIVE,
@@ -6,4 +6,3 @@ public enum Status {
     UNSOLD,
     EXPIRED
 }
-

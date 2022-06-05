@@ -1,5 +1,7 @@
 package com.goldenspace.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import com.goldenspace.dao.AuctionRepository;
@@ -7,9 +9,10 @@ import com.goldenspace.dao.BidRepository;
 import com.goldenspace.dto.BidDto;
 import com.goldenspace.entity.Auction;
 import com.goldenspace.entity.Bid;
-import com.goldenspace.entity.Status;
+import com.goldenspace.enums.Status;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 @Transactional
@@ -45,7 +48,7 @@ public class AuctionService {
                 if (auction.getBids().size() == 0) {
                     // set auction status to expired
                     auction.setStatus(Status.UNSOLD);
-                    result =  "Auction has no bids and is expired";
+                    result = "Auction has no bids and is expired";
                 }
                 // if auction has bids
                 else {
@@ -54,7 +57,7 @@ public class AuctionService {
                     auction.setSoldPrice(auction.getBids().get(auction.getBids().size() - 1).getPrice());
                     // set auction status to sold
                     auction.setStatus(Status.SOLD);
-                    result =  "Auction has been sold with price: " + auction.getSoldPrice();
+                    result = "Auction has been sold with price: " + auction.getSoldPrice();
                 }
             }
         }
@@ -63,8 +66,27 @@ public class AuctionService {
             result = "Auction does not exist";
         }
 
-    return result;
+        return result;
 
     }
 
+    public Auction addAuction(Auction auction) {
+        return auctionRepository.save(auction);
+    }
+
+    public List<Auction> getAuction() {
+        return auctionRepository.findAll();
+    }
+
+    public List<Auction> findAuctionById(Long id) {
+        return auctionRepository.findAuctionById(id);
+    }
+
+    public List<Auction> deleteAuctionById(Long id) {
+        return auctionRepository.deleteAuctionById(id);
+    }
+
+    public Auction updateAuctionById(@RequestBody Auction auction) {
+        return auctionRepository.save(auction);
+    }
 }
