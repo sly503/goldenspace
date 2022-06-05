@@ -4,8 +4,6 @@ import com.goldenspace.dto.AuctionRead;
 import com.goldenspace.dto.BidDto;
 import com.goldenspace.dto.ServiceResponse;
 import com.goldenspace.service.AuctionService;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,6 +22,11 @@ public class AuctionController {
             return true;
         } else
             return false;
+    }
+
+    @PostMapping("/auction/addBid")
+    public ServiceResponse<String> addBid(@RequestBody BidDto bid) {
+        return auctionService.addBid2(bid);
     }
 
     // put mapping to close auction

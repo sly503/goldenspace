@@ -67,4 +67,22 @@ public class AuctionService {
 
     }
 
+
+    public ServiceResponse<String> addBid2(BidDto bid) {
+        String result = "ok";
+        Auction auction = auctionRepository.findById(bid.getAuctionId()).get();
+        //if bid price is higher than auction current price and auction is active add bid 
+        if (bid.getPrice().compareTo(auction.getCurrentPrice()) > 0 && auction.getStatus() == Status.ACTIVE) {
+            Bid newBid = new Bid();
+            newBid.setPrice(bid.getPrice());
+            newBid.setAuction(auction);
+            bidRepository.save(newBid);
+            auction.addBid(newBid);
+            auctionRepository.save(auction);
+        }else{
+            result = "Bid price is lower than current price or auction is not active";
+        }
+        return result.equals("ok") ? ServiceResponse.success("Bid added") : ServiceResponse.error(result);
+    }
+
 }

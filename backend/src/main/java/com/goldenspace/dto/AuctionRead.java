@@ -8,4 +8,9 @@ import lombok.Setter;
 public class  AuctionRead {
     protected Long id;
 
+    public Long getId() {
+        return id;
+    }
+    
+
 }
