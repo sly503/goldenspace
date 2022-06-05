@@ -1,7 +1,8 @@
 <div class="container px-4 px-lg-5 mt-5">
   <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-    <div *ngFor="let auction of auctions" class="col mb-5">
-      <div class="card h-100">
+    <div *ngFor="let auction of auctions" class="col mb-5" >
+
+      <div  class="card h-100">
         <!-- Product image-->
         <a routerLink="/auctions/{{auction.id}}">
           <img class="card-img-top" src="{{auction.imageUrl}}" alt="..." />
@@ -27,6 +28,7 @@
         </div>
       </div>
     </div>
+    </div>
     <!-- pagination -->
 
     <div>
@@ -37,6 +39,7 @@
 
     </div>
 
+
   </div>
   <div class="col-12">
     <nav aria-label="Page navigation example">
@@ -46,4 +49,4 @@
       </ul>
     </nav>
   </div>
-</div>
+

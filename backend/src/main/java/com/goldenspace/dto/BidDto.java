@@ -1,7 +1,6 @@
 package com.goldenspace.dto;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 public class BidDto {
     
@@ -9,7 +8,7 @@ public class BidDto {
     private Long id;
     private Long auctionId;
     private BigDecimal price;
-    private Date bidTime;
+    
 
     public Long getId() {
         return id;
@@ -36,13 +35,6 @@ public class BidDto {
         this.price = price;
     }
 
-    public Date getBidTime() {
-        return bidTime;
-    }
-
-    public void setBidTime(Date bidTime) {
-        this.bidTime = bidTime;
-    }
 
 
 

@@ -1,8 +1,11 @@
 package com.goldenspace.controller;
 
+import com.goldenspace.dto.AuctionRead;
 import com.goldenspace.dto.BidDto;
+import com.goldenspace.dto.ServiceResponse;
 import com.goldenspace.service.AuctionService;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,12 +27,9 @@ public class AuctionController {
     }
 
     // put mapping to close auction
-    @PostMapping("/auctions/close/{id}")
-    public String closeAuction(@PathVariable Long id) {
-
-        return auctionService.closeAuction(id);
-        
-
+    @PostMapping("/auction/close")
+    public ServiceResponse<String> closeAuction(@RequestBody AuctionRead dto) {
+        return auctionService.closeAuction(dto.getId()) ;
     }
 
 }

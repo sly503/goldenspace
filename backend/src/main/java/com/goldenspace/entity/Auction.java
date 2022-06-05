@@ -67,6 +67,16 @@ public class Auction {
     }
 
 
+    public BigDecimal getCurrentPrice() {
+        return currentPrice;
+    }
+
+
+    public void setCurrentPrice(BigDecimal currentPrice) {
+        this.currentPrice = currentPrice;
+    }
+
+
     public void setSoldPrice(BigDecimal soldPrice) {
         this.soldPrice = soldPrice;
     }

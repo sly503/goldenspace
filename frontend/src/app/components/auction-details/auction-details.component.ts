@@ -44,9 +44,7 @@ export class AuctionDetailsComponent implements OnInit {
     const theAuctionId: number = +this.route.snapshot.paramMap.get('id')!;
     this.auctionService.getAuction(theAuctionId).subscribe((data) => {
       this.auction = data;
-    }
-    );
-
+    });
   }
 
   //list of bids for the auction
@@ -76,13 +74,22 @@ export class AuctionDetailsComponent implements OnInit {
   //close auction
   closeAuction() {
     const theAuctionId: number = +this.route.snapshot.paramMap.get('id')!;
-    this.auctionService.closeAuction(theAuctionId).subscribe((data) => {
-      this.auction = data;
+    this.auctionService.closeAuction(theAuctionId).subscribe({
+      next: (data) => {
+          if (data.success) {
+            alert('Auction closed successfully.');
+
+          }
+          else {
+            alert(data.messages.join('\n'));
+          }
+          this.handleAuctionDetails();
+      },
+      error: (err) => {
+        console.log(err);
+      }
     });
   }
-
-
-
 
   //open modal
   open(content: any) {

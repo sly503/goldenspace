@@ -5,6 +5,7 @@ import javax.transaction.Transactional;
 import com.goldenspace.dao.AuctionRepository;
 import com.goldenspace.dao.BidRepository;
 import com.goldenspace.dto.BidDto;
+import com.goldenspace.dto.ServiceResponse;
 import com.goldenspace.entity.Auction;
 import com.goldenspace.entity.Bid;
 import com.goldenspace.entity.Status;
@@ -34,7 +35,7 @@ public class AuctionService {
         return auctionRepository.save(auction);
     }
 
-    public String closeAuction(Long id) {
+    public ServiceResponse<String> closeAuction(Long id) {
         String result = "ok";
         Auction auction = auctionRepository.findById(id).get();
         // if auction is not null and auction is not sold and auction is not expired
@@ -54,7 +55,6 @@ public class AuctionService {
                     auction.setSoldPrice(auction.getBids().get(auction.getBids().size() - 1).getPrice());
                     // set auction status to sold
                     auction.setStatus(Status.SOLD);
-                    result =  "Auction has been sold with price: " + auction.getSoldPrice();
                 }
             }
         }
@@ -63,7 +63,7 @@ public class AuctionService {
             result = "Auction does not exist";
         }
 
-    return result;
+        return result.equals("ok") ? ServiceResponse.success("Auction status changed") : ServiceResponse.error(result);
 
     }
 

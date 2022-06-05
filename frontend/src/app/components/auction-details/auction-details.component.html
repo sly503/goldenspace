@@ -47,6 +47,8 @@
 
                       <h6>Description:</h6>
                       <p>{{auction.description}}</p>
+                      <h6>Auction Status</h6>
+                      <p>{{auction.status}}</p>
                         <div class="col d-grid">
                           <button class="btn btn-outline-warning bg-dark" (click)="open(content)">
                             <i id="bid-icon" class="fa fa-dollar"></i> add bid </button>
@@ -55,7 +57,8 @@
                           <a class="btn btn-outline-dark mt-auto" routerLink="/auctions/">Back to auctions</a>
                         </div>  <br>
                         <!--remove auction -->
-                        <div class="col d-grid">
+                        <!--if auction status is Active show this button-->
+                        <div *ngIf="auction.status == 'ACTIVE'" class="col d-grid">
                           <button class="btn btn-outline-danger bg-dark" (click)="closeAuction()">
                             <i id="bid-icon" class="fa fa-trash"></i>Close auction </button>
                       </div>
