@@ -75,6 +75,11 @@ export class AuctionService {
     const url = `${this.PostUrl}/addBid/${auctionId}`
     return this.httpClient.post<Bid>(url, bid);
   }
+  addBid2(auctionId: number, bid: Bid): Observable<any> {
+    const url = `${this.PostUrl}/addBid`
+    bid.auctionId = auctionId;
+    return this.httpClient.post<any>(url, bid);
+  }
 
   //send a post request to close auction
   closeAuction(auctionId: number): Observable<any> {

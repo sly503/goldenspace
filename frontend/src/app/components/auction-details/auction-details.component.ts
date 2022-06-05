@@ -71,6 +71,32 @@ export class AuctionDetailsComponent implements OnInit {
     });
   }
 
+  addBid2(bid: Bid) {
+    const theAuctionId: number = +this.route.snapshot.paramMap.get('id')!;
+    const bidRecord = new BidRecord(bid);
+
+    // Update the total invest
+    this.recordService.addBidRecord(bidRecord);
+
+    // Save to database
+    this.auctionService.addBid2(theAuctionId, bid).subscribe({
+      next: (data) => {
+          if (data.success) {
+            alert('Bid added successfully.');
+
+          }
+          else {
+            alert(data.messages.join('\n'));
+          }
+          this.getBids();
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
+
   //close auction
   closeAuction() {
     const theAuctionId: number = +this.route.snapshot.paramMap.get('id')!;
