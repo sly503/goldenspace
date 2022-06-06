@@ -4,10 +4,13 @@ import javax.transaction.Transactional;
 
 import com.goldenspace.dao.AuctionRepository;
 import com.goldenspace.dao.BidRepository;
+import com.goldenspace.dao.CategoryRepository;
+import com.goldenspace.dto.AuctionCreate;
 import com.goldenspace.dto.BidDto;
 import com.goldenspace.dto.ServiceResponse;
 import com.goldenspace.entity.Auction;
 import com.goldenspace.entity.Bid;
+import com.goldenspace.entity.Category;
 import com.goldenspace.entity.Status;
 
 import org.springframework.stereotype.Service;
@@ -18,11 +21,15 @@ public class AuctionService {
 
     AuctionRepository auctionRepository;
     BidRepository bidRepository;
+    CategoryRepository categoryRepository;
 
     // constructor
-    public AuctionService(AuctionRepository auctionRepository, BidRepository bidRepository) {
+    public AuctionService(AuctionRepository auctionRepository, BidRepository bidRepository,
+            CategoryRepository categoryRepository) {
         this.auctionRepository = auctionRepository;
         this.bidRepository = bidRepository;
+        this.categoryRepository = categoryRepository;
+
     }
 
     public Auction addBid(Long id, BidDto bid) {
@@ -46,7 +53,7 @@ public class AuctionService {
                 if (auction.getBids().size() == 0) {
                     // set auction status to expired
                     auction.setStatus(Status.UNSOLD);
-                    result =  "Auction has no bids and is expired";
+                    result = "Auction has no bids and is expired";
                 }
                 // if auction has bids
                 else {
@@ -67,11 +74,11 @@ public class AuctionService {
 
     }
 
-
     public ServiceResponse<String> addBid2(BidDto bid) {
         String result = "ok";
         Auction auction = auctionRepository.findById(bid.getAuctionId()).get();
-        //if bid price is higher than auction current price and auction is active add bid 
+        // if bid price is higher than auction current price and auction is active add
+        // bid
         if (bid.getPrice().compareTo(auction.getCurrentPrice()) > 0 && auction.getStatus() == Status.ACTIVE) {
             Bid newBid = new Bid();
             newBid.setPrice(bid.getPrice());
@@ -79,10 +86,33 @@ public class AuctionService {
             bidRepository.save(newBid);
             auction.addBid(newBid);
             auctionRepository.save(auction);
-        }else{
+        } else {
             result = "Bid price is lower than current price or auction is not active";
         }
         return result.equals("ok") ? ServiceResponse.success("Bid added") : ServiceResponse.error(result);
     }
 
+    // add auction
+    public ServiceResponse<String> addAuction(AuctionCreate auctionCreate) {
+        String result = "ok";
+        Auction auction = new Auction();
+        Category category = categoryRepository.findById(auctionCreate.getCategoryId()).get();
+
+        // if category is not null
+        if (category != null) {
+            auction.setName(auctionCreate.getName());
+            auction.setDescription(auctionCreate.getDescription());
+            auction.setImageUrl(auctionCreate.getImageUrl());
+            auction.setStartDate(auctionCreate.getStartDate());
+            auction.setEndDate(auctionCreate.getEndDate());
+            auction.setInitialPrice(auctionCreate.getInitialPrice());
+            auction.setCurrentPrice(auctionCreate.getInitialPrice());
+            auction.setCategory(category);
+            auction.setStatus(Status.ACTIVE);
+            auctionRepository.save(auction);
+        } else {
+            result = "Category does not exist";
+        }
+        return result.equals("ok") ? ServiceResponse.success("Auction added") : ServiceResponse.error(result);
+    }
 }

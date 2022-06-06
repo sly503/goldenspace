@@ -1,5 +1,6 @@
 package com.goldenspace.controller;
 
+import com.goldenspace.dto.AuctionCreate;
 import com.goldenspace.dto.AuctionRead;
 import com.goldenspace.dto.BidDto;
 import com.goldenspace.dto.ServiceResponse;
@@ -33,6 +34,11 @@ public class AuctionController {
     @PostMapping("/auction/close")
     public ServiceResponse<String> closeAuction(@RequestBody AuctionRead dto) {
         return auctionService.closeAuction(dto.getId()) ;
+    }
+
+    @PostMapping("/auction/addAuction")
+    public ServiceResponse<String> addAuction(@RequestBody AuctionCreate auctionCreateDto) {
+        return auctionService.addAuction(auctionCreateDto);
     }
 
 }

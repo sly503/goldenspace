@@ -1,6 +1,5 @@
 package com.goldenspace.entity;
 
-import java.util.Date;
 import javax.persistence.*;
 import javax.persistence.Table;
 import lombok.Data;
@@ -22,24 +21,6 @@ public class User {
 
     @Column(name = "email")
     private String email;
-
-    @Column(name = "phone")
-    private String phone;
-
-    @Column(name = "address")
-    private String address;
-
-    @Column(name = "avatar")
-    private String avatar;
-
-    @Column(name = "status")
-    private boolean status;
-
-    @Column(name = "registration_date")
-    private Date registrationDate;
-
-    @Column(name = "city")
-    private String city;
 
     /*
      * @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")

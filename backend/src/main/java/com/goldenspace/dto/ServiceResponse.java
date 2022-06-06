@@ -13,14 +13,14 @@ public class ServiceResponse<T> {
     protected T data;
 
     public static <T> ServiceResponse<T> success(T data) {
-        ServiceResponse response = new ServiceResponse();
+        ServiceResponse<T> response = new ServiceResponse<T>();
         response.setSuccess(true);
         response.setData(data);
         return response;
     }
 
     public static <T> ServiceResponse<T> error(String error) {
-        ServiceResponse response = new ServiceResponse();
+        ServiceResponse<T> response = new ServiceResponse<T>();
         response.setSuccess(false);
         response.setMessages(List.of(error)); 
         return response;
