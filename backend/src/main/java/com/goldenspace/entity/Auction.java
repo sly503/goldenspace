@@ -36,7 +36,6 @@ public class Auction {
     private Date startDate;
 
     @Column(name = "end_date")
-    @UpdateTimestamp
     private Date endDate;
 
     @Column(name = "initial_price")
