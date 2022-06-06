@@ -5,6 +5,7 @@ import { Auction } from '../common/auction';
 import { HttpClient } from '@angular/common/http';
 import { Category } from '../common/category';
 import { Bid } from '../common/bid';
+import { AuctionDto } from '../common/auction-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -71,14 +72,21 @@ export class AuctionService {
     return this.httpClient.get<Auction>(url);
   }
 
-  addBid(auctionId: number, bid: Bid): Observable<Bid> {
+/*   addBid(auctionId: number, bid: Bid): Observable<Bid> {
     const url = `${this.PostUrl}/addBid/${auctionId}`
     return this.httpClient.post<Bid>(url, bid);
-  }
+  } */
+
+
   addBid2(auctionId: number, bid: Bid): Observable<any> {
     const url = `${this.PostUrl}/addBid`
     bid.auctionId = auctionId;
     return this.httpClient.post<any>(url, bid);
+  }
+
+  addAuction(auction: AuctionDto): Observable<any> {
+    const url = `${this.PostUrl}/addAuction`;
+    return this.httpClient.post<any>(url, auction);
   }
 
   //send a post request to close auction

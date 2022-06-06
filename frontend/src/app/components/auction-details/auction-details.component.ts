@@ -55,8 +55,8 @@ export class AuctionDetailsComponent implements OnInit {
       this.bids = data;
     });
   }
-
-  //add bid
+/*
+  //add bid with URL parameters
   addBid(bid: Bid) {
     const theAuctionId: number = +this.route.snapshot.paramMap.get('id')!;
     const bidRecord = new BidRecord(bid);
@@ -69,7 +69,7 @@ export class AuctionDetailsComponent implements OnInit {
       this.bid = data;
       this.getBids();
     });
-  }
+  } */
 
   addBid2(bid: Bid) {
     const theAuctionId: number = +this.route.snapshot.paramMap.get('id')!;

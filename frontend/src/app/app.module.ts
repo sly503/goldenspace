@@ -25,6 +25,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
 import { BidstatusComponent } from './components/bidstatus/bidstatus.component';
+import { AddAuctionComponent } from './components/add-auction/add-auction.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { BidstatusComponent } from './components/bidstatus/bidstatus.component';
     CrudformComponent,
     DialogComponent,
     BidstatusComponent,
+    AddAuctionComponent,
   ],
 
   imports: [
