@@ -1,7 +1,7 @@
 package com.goldenspace.dao;
 
 import com.goldenspace.entity.Auction;
-import com.goldenspace.entity.Status;
+import com.goldenspace.entity.enums.EStatus;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +20,6 @@ public interface AuctionRepository extends JpaRepository<Auction, Long> {
     //Page<Auction> findByCityContaining(@RequestParam("city") String city, Pageable pageable);
 
    
-    Page<Auction> findByStatus(@RequestParam("status") Status status, Pageable pageable);
+    Page<Auction> findByStatus(@RequestParam("status") EStatus status, Pageable pageable);
     
 }

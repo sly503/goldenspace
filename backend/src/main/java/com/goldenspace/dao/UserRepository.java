@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     
-    Page<User> findByCityContaining(@RequestParam("city") String city, Pageable pageable);
+//    Page<User> findByCityContaining(@RequestParam("city") String city, Pageable pageable);
 
+    User findByUsername(String username);
+
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
 }

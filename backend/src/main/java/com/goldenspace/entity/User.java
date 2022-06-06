@@ -1,21 +1,30 @@
 package com.goldenspace.entity;
 
-import java.util.Date;
+import java.util.*;
 import javax.persistence.*;
 import javax.persistence.Table;
+
+import com.goldenspace.entity.enums.ERole;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email")
+})
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -23,30 +32,31 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "phone")
     private String phone;
 
-    @Column(name = "address")
-    private String address;
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 
-    @Column(name = "avatar")
-    private String avatar;
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE,
+                    CascadeType.DETACH,
+                    CascadeType.REFRESH
+            })
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
-    @Column(name = "status")
-    private boolean status;
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+     //private List<Bid> bids;
 
-    @Column(name = "registration_date")
-    private Date registrationDate;
+    // @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+     //private List<Auction> auctions;
 
-    @Column(name = "city")
-    private String city;
-
-    /*
-     * @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-     * private List<Bid> bids;
-     * 
-     * @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-     * private List<Auction> auctions;
-     */
 
 }

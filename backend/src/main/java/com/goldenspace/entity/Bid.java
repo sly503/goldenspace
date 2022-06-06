@@ -34,22 +34,7 @@ public class Bid {
     @CreationTimestamp
     private Date bidTime;
 
-
-    public Bid() {
-        this.bidTime = new Date();
-    }
-    
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    // get price
-    public BigDecimal getPrice() {
-        return this.price;
-    }
-
     public void setAuction(Auction auction2) {
         this.auction = auction2;
     }
-
 }

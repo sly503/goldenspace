@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.goldenspace.entity.enums.EStatus;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import lombok.Data;
@@ -54,53 +55,11 @@ public class Auction {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     //default value is active
-    private Status status = Status.ACTIVE;
-
+    private EStatus status = EStatus.ACTIVE;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "auction")
     @JsonIgnore
     private List<Bid> bids;
-
-
-    public BigDecimal getSoldPrice() {
-        return soldPrice;
-    }
-
-
-    public BigDecimal getCurrentPrice() {
-        return currentPrice;
-    }
-
-
-    public void setCurrentPrice(BigDecimal currentPrice) {
-        this.currentPrice = currentPrice;
-    }
-
-
-    public void setSoldPrice(BigDecimal soldPrice) {
-        this.soldPrice = soldPrice;
-    }
-
-
-    public Status getStatus() {
-        return status;
-    }
-
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-
-    public List<Bid> getBids() {
-        return bids;
-    }
-
-
-    public void setBids(List<Bid> bids) {
-        this.bids = bids;
-    }
-
 
     public void addBid(Bid bid) {
         //if bid is not null and bid is not equal or lower than current price
