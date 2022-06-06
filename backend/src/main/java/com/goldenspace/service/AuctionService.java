@@ -13,10 +13,13 @@ import com.goldenspace.entity.Bid;
 import com.goldenspace.entity.Category;
 import com.goldenspace.entity.Status;
 
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
+@EnableScheduling
 public class AuctionService {
 
     AuctionRepository auctionRepository;
@@ -32,21 +35,23 @@ public class AuctionService {
 
     }
 
-    public Auction addBid(Long id, BidDto bid) {
-        Auction auction = auctionRepository.findById(id).get();
-        Bid newBid = new Bid();
-        newBid.setPrice(bid.getPrice());
-        newBid.setAuction(auction);
-        bidRepository.save(newBid);
-        auction.addBid(newBid);
-        return auctionRepository.save(auction);
-    }
+    /*
+     * public Auction addBid(Long id, BidDto bid) {
+     * Auction auction = auctionRepository.findById(id).get();
+     * Bid newBid = new Bid();
+     * newBid.setPrice(bid.getPrice());
+     * newBid.setAuction(auction);
+     * bidRepository.save(newBid);
+     * auction.addBid(newBid);
+     * return auctionRepository.save(auction);
+     * }
+     */
 
     public ServiceResponse<String> closeAuction(Long id) {
         String result = "ok";
         Auction auction = auctionRepository.findById(id).get();
         // if auction is not null and auction is not sold and auction is not expired
-        if (auction != null && auction.getStatus() != Status.SOLD && auction.getStatus() != Status.EXPIRED) {
+        if (auction != null && auction.getStatus() != Status.SOLD && auction.getStatus() != Status.UNSOLD) {
             // if auction is active
             if (auction.getStatus() == Status.ACTIVE) {
                 // if auction has no bids
@@ -114,5 +119,30 @@ public class AuctionService {
             result = "Category does not exist";
         }
         return result.equals("ok") ? ServiceResponse.success("Auction added") : ServiceResponse.error(result);
+    }
+
+    //scheduled run every 1 min
+    @Scheduled(fixedRate = 10000)
+    public void updateAuction() {
+        for (Auction auction : auctionRepository.findAll()) {
+            // if auction is active and there are no bids
+            if (auction.getStatus() == Status.ACTIVE && auction.getBids().size() == 0) {
+                // set auction status to expired
+                auction.setStatus(Status.UNSOLD);
+                System.out.println("updated to UNSOLD");
+            }
+            // if auction is active and there are bids
+            else if (auction.getStatus() == Status.ACTIVE && auction.getBids().size() > 0) {
+                // set auction current price to highest bid price
+                auction.setCurrentPrice(auction.getBids().get(auction.getBids().size() - 1).getPrice());
+                auction.setSoldPrice(auction.getBids().get(auction.getBids().size() - 1).getPrice());
+                // set auction status to sold
+                auction.setStatus(Status.SOLD);
+                System.out.println("updated to SOLD");
+            }
+            auctionRepository.save(auction);
+            
+
+        }
     }
 }

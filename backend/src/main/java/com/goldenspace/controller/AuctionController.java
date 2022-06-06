@@ -16,14 +16,14 @@ public class AuctionController {
     public AuctionController(AuctionService auctionService) {
         this.auctionService = auctionService;
     }
-
+/* 
     @PostMapping("/auction/addBid/{id}")
     public boolean addBid(@PathVariable Long id, @RequestBody BidDto bid) {
         if (auctionService.addBid(id, bid) != null) {
             return true;
         } else
             return false;
-    }
+    } */
 
     @PostMapping("/auction/addBid")
     public ServiceResponse<String> addBid(@RequestBody BidDto bid) {
