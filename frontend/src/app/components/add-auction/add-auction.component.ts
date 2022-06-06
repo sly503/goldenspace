@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuctionService } from 'src/app/services/auction.service';
 import { NgbModal,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AuctionDto } from 'src/app/common/auction-dto';
+import { Category } from 'src/app/common/category';
 
 @Component({
   selector: 'app-add-auction',
@@ -12,6 +13,8 @@ import { AuctionDto } from 'src/app/common/auction-dto';
 
 export class AddAuctionComponent implements OnInit {
   auctionDto: AuctionDto = new AuctionDto();
+  //categorie list
+  categories: Category[] = [];
   closeResult!: string;
 
   constructor(
@@ -19,7 +22,18 @@ export class AddAuctionComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.listAuctionCategories();
+  }
+
+  listAuctionCategories() {
+    this.auctionService.getAuctionCategories().subscribe((data) => {
+      console.log('Auction categories=' + JSON.stringify(data));
+      this.categories = data;
+    });
+  }
+
+
 
   addAuction(auction: AuctionDto) {
     // Save to database
@@ -37,6 +51,16 @@ export class AddAuctionComponent implements OnInit {
         console.log(err);
       }
     })
+  }
+
+  //upload base64 image to server
+  uploadImage(event:any) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.auctionDto.imageUrl = reader.result as string;
+    };
   }
 
   open(content: any) {

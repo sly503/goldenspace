@@ -47,17 +47,26 @@
         <input type="text" class="form-control" id="auction-image" placeholder="Enter auction image"
           [(ngModel)]="auctionDto.imageUrl">
       </div>
+
+      <!-- check list of categories-->
       <div class="form-group">
         <label for="auction-category">Auction Category</label>
-        <input type="text" class="form-control" id="auction-category" placeholder="Enter auction category"
-          [(ngModel)]="auctionDto.categoryId">
+        <select class="form-control" id="auction-category" [(ngModel)]="auctionDto.categoryId">
+          <option *ngFor="let category of categories" [value]="category.id">{{category.categoryName}}</option>
+        </select>
       </div>
 
     </div>
-
-
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
       <button type="button" class="btn btn-outline-dark" (click)="addAuction(auctionDto)">Save changes</button>
     </div>
   </ng-template>
+<!--
+      <div class="form-group">
+        <label for="auction-image">Upload image</label>
+        <input type="file" accept="image/*" (change)="uploadImage($event)" />
+      </div>
+    </div>
+ -->
+
