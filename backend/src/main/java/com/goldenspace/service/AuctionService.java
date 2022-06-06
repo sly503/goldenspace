@@ -54,7 +54,7 @@ public class AuctionService {
         if (auction != null && auction.getStatus() != Status.SOLD && auction.getStatus() != Status.UNSOLD) {
             // if auction is active
             if (auction.getStatus() == Status.ACTIVE) {
-                // if auction has no bids
+                // if auction has no bids and date is
                 if (auction.getBids().size() == 0) {
                     // set auction status to expired
                     auction.setStatus(Status.UNSOLD);
@@ -62,7 +62,6 @@ public class AuctionService {
                 }
                 // if auction has bids
                 else {
-
                     // set auction sold price to highest bid price
                     auction.setSoldPrice(auction.getBids().get(auction.getBids().size() - 1).getPrice());
                     // set auction status to sold
@@ -121,28 +120,20 @@ public class AuctionService {
         return result.equals("ok") ? ServiceResponse.success("Auction added") : ServiceResponse.error(result);
     }
 
-    //scheduled run every 1 min
+    // scheduled run every 1 min
     @Scheduled(fixedRate = 10000)
     public void updateAuction() {
+        // check if auction end date is in the past and auction is active and auction has bids
+        // if so set auction status to sold else set auction status to unsold
         for (Auction auction : auctionRepository.findAll()) {
-            // if auction is active and there are no bids
-            if (auction.getStatus() == Status.ACTIVE && auction.getBids().size() == 0) {
-                // set auction status to expired
-                auction.setStatus(Status.UNSOLD);
-                System.out.println("updated to UNSOLD");
+            if (auction.getStatus() == Status.ACTIVE && auction.getEndDate().before(new java.util.Date())){
+                            if (auction.getBids().size() > 0) {
+                    auction.setStatus(Status.SOLD);
+                    auction.setSoldPrice(auction.getBids().get(auction.getBids().size() - 1).getPrice());
+                } else {
+                    auction.setStatus(Status.UNSOLD);
+                }
             }
-            // if auction is active and there are bids
-            else if (auction.getStatus() == Status.ACTIVE && auction.getBids().size() > 0) {
-                // set auction current price to highest bid price
-                auction.setCurrentPrice(auction.getBids().get(auction.getBids().size() - 1).getPrice());
-                auction.setSoldPrice(auction.getBids().get(auction.getBids().size() - 1).getPrice());
-                // set auction status to sold
-                auction.setStatus(Status.SOLD);
-                System.out.println("updated to SOLD");
-            }
-            auctionRepository.save(auction);
-            
-
         }
     }
 }
