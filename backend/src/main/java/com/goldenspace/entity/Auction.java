@@ -48,7 +48,8 @@ public class Auction {
     @Column(name = "sold_price")
     private BigDecimal soldPrice;
 
-    @Column(name = "image_url")
+    @Lob
+    @Column(name = "image_url",columnDefinition = "MEDIUMBLOB")
     private String imageUrl;
 
     @Column(name = "status")
