@@ -26,6 +26,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
 import { BidstatusComponent } from './components/bidstatus/bidstatus.component';
 import { AddAuctionComponent } from './components/add-auction/add-auction.component';
+import { NewsComponent } from './components/news/news.component';
+import { NewsDetailsComponent } from './components/news/news-details/news-details.component';
+import { AddNewsComponent } from './components/news/add-news/add-news.component';
+import { Ad4newsComponent } from './components/news/ad4news/ad4news.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +42,10 @@ import { AddAuctionComponent } from './components/add-auction/add-auction.compon
     DialogComponent,
     BidstatusComponent,
     AddAuctionComponent,
+    NewsComponent,
+    NewsDetailsComponent,
+    AddNewsComponent,
+    Ad4newsComponent
   ],
 
   imports: [

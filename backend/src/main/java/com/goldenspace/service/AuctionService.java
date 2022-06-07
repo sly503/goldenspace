@@ -143,7 +143,6 @@ public class AuctionService {
                 auction.setStatus(Status.UNSOLD);
                 System.out.println("Auction is Unsold");
             }
-
         }
     }
 }

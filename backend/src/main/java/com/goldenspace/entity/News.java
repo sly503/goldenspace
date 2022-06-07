@@ -7,10 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Data;
 
@@ -29,18 +29,17 @@ public class News {
     @Column(name = "content")
     private String content;
 
-    @Column(name = "image_url")
+
+    @Lob
+    @Column(name = "image_url",columnDefinition = "MEDIUMBLOB")
     private String imageUrl;
 
     @Column(name = "create_time")
     @CreationTimestamp
     private Date createTime;
 
-    @Column(name = "update_time")
-    @UpdateTimestamp
-    private Date updateTime;
-
-    @Column(name = "status")
-    private boolean status;
+    @Column(name = "author")
+    private String author;
 
 }
+
