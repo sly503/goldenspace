@@ -1,5 +1,7 @@
 package com.goldenspace.service;
 
+import java.util.Date;
+
 import javax.transaction.Transactional;
 
 import com.goldenspace.dao.AuctionRepository;
@@ -123,17 +125,25 @@ public class AuctionService {
     // scheduled run every 1 min
     @Scheduled(fixedRate = 10000)
     public void updateAuction() {
+        Date currentDate = new Date();
+        System.out.println("Date 1: " + currentDate);
         // check if auction end date is in the past and auction is active and auction has bids
         // if so set auction status to sold else set auction status to unsold
         for (Auction auction : auctionRepository.findAll()) {
-            if (auction.getStatus() == Status.ACTIVE && auction.getEndDate().before(new java.util.Date())){
+            //if auction has bids and end date is in the past and auction is active set auction status to sold and sold price to highest bid price
+            if (auction.getStatus() == Status.ACTIVE && auction.getEndDate().before(currentDate)) {
                             if (auction.getBids().size() > 0) {
                     auction.setStatus(Status.SOLD);
                     auction.setSoldPrice(auction.getBids().get(auction.getBids().size() - 1).getPrice());
-                } else {
-                    auction.setStatus(Status.UNSOLD);
+                    System.out.println("Auction is Sold with price: " + auction.getSoldPrice());
                 }
             }
+            //if auction has no bids and end date is in the past and auction is active set auction status to unsold
+            else if (auction.getStatus() == Status.ACTIVE && auction.getEndDate().before(currentDate) && auction.getBids().size() == 0) {
+                auction.setStatus(Status.UNSOLD);
+                System.out.println("Auction is Unsold");
+            }
+
         }
     }
 }

@@ -27,29 +27,33 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
-/*
-        HttpMethod[] theUnsupportedActions = { HttpMethod.PUT, HttpMethod.POST,
-                HttpMethod.DELETE, HttpMethod.PATCH };
-
-        // disable HTTP methods for ProductCategory: PUT, POST, DELETE and PATCH
-        disableHttpMethods(Auction.class, config, theUnsupportedActions);
-        disableHttpMethods(Category.class, config, theUnsupportedActions);
- */ 
+        /*
+         * HttpMethod[] theUnsupportedActions = { HttpMethod.PUT, HttpMethod.POST,
+         * HttpMethod.DELETE, HttpMethod.PATCH };
+         * 
+         * // disable HTTP methods for ProductCategory: PUT, POST, DELETE and PATCH
+         * disableHttpMethods(Auction.class, config, theUnsupportedActions);
+         * disableHttpMethods(Category.class, config, theUnsupportedActions);
+         */
         // call an internal helper method
         exposeIds(config);
 
         // configure cors mapping
         cors.addMapping(config.getBasePath() + "/**").allowedOrigins(theAllowedOrigins);
     }
-/*
-    private void disableHttpMethods(Class theClass, RepositoryRestConfiguration config,
-            HttpMethod[] theUnsupportedActions) {
-        config.getExposureConfiguration()
-                .forDomainType(theClass)
-                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
-                .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
-    }
- */
+
+    /*
+     * private void disableHttpMethods(Class theClass, RepositoryRestConfiguration
+     * config,
+     * HttpMethod[] theUnsupportedActions) {
+     * config.getExposureConfiguration()
+     * .forDomainType(theClass)
+     * .withItemExposure((metdata, httpMethods) ->
+     * httpMethods.disable(theUnsupportedActions))
+     * .withCollectionExposure((metdata, httpMethods) ->
+     * httpMethods.disable(theUnsupportedActions));
+     * }
+     */
     private void exposeIds(RepositoryRestConfiguration config) {
 
         // expose entity ids
