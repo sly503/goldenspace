@@ -11,31 +11,27 @@ import { AuctionDto } from '../common/auction-dto';
   providedIn: 'root',
 })
 export class AuctionService {
-
   private baseUrl = 'http://localhost:8080/api/auctions';
   private categoryUrl = 'http://localhost:8080/api/categories';
   private PostUrl = 'http://localhost:8080/auction';
 
-
   constructor(private httpClient: HttpClient) {}
 
-
-
-  getAuctionListPaginate(thePage: number,
+  getAuctionListPaginate(
+    thePage: number,
     thePageSize: number,
-    theCategoryId: number): Observable<GetResponseAuctions> {
-
-    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`
-      + `&page=${thePage}&size=${thePageSize}`;
+    theCategoryId: number
+  ): Observable<GetResponseAuctions> {
+    const searchUrl =
+      `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}` +
+      `&page=${thePage}&size=${thePageSize}`;
 
     return this.httpClient.get<GetResponseAuctions>(searchUrl);
   }
 
-
   getAuctionList(categoryId: number): Observable<Auction[]> {
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
     return this.getAuctions(searchUrl);
-
   }
 
   getBidList(auctionId: number): Observable<Bid[]> {
@@ -48,7 +44,6 @@ export class AuctionService {
       .get<GetResponseBids>(searchUrl)
       .pipe(map((response) => response._embedded.bids));
   }
-
 
   getAuctionCategories(): Observable<Category[]> {
     return this.httpClient
@@ -72,14 +67,13 @@ export class AuctionService {
     return this.httpClient.get<Auction>(url);
   }
 
-/*   addBid(auctionId: number, bid: Bid): Observable<Bid> {
+  /*   addBid(auctionId: number, bid: Bid): Observable<Bid> {
     const url = `${this.PostUrl}/addBid/${auctionId}`
     return this.httpClient.post<Bid>(url, bid);
   } */
 
-
   addBid2(auctionId: number, bid: Bid): Observable<any> {
-    const url = `${this.PostUrl}/addBid`
+    const url = `${this.PostUrl}/addBid`;
     bid.auctionId = auctionId;
     return this.httpClient.post<any>(url, bid);
   }
@@ -92,16 +86,15 @@ export class AuctionService {
   //send a post request to close auction
   closeAuction(auctionId: number): Observable<any> {
     const url = `${this.PostUrl}/close`;
-    return this.httpClient.post<any>(url, {id: auctionId});
+    return this.httpClient.post<any>(url, { id: auctionId });
   }
-
 
   getActiveAuctions() {
-    const url = `${this.baseUrl}/search/findByActiveTrue`;
-    return this.getAuctions(url);
+    const url = `http://localhost:8080/api/auctions/search/findByStatus?status=ACTIVE`;
+    return this.httpClient
+      .get<GetResponseAuctions>(url)
+      .pipe(map((response: any) => response._embedded.auctions));
   }
-
-
 }
 
 interface GetResponseAuctions {
@@ -109,11 +102,11 @@ interface GetResponseAuctions {
     auctions: Auction[];
   };
   page: {
-    size: number,
-    totalElements: number,
-    totalPages: number,
-    number: number
-  }
+    size: number;
+    totalElements: number;
+    totalPages: number;
+    number: number;
+  };
 }
 
 interface GetResponseCategory {
@@ -127,8 +120,3 @@ interface GetResponseBids {
     bids: Bid[];
   };
 }
-
-
-
-
-

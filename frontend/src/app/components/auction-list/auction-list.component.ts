@@ -13,6 +13,7 @@ import { RecordsService } from 'src/app/services/records.service';
 })
 export class AuctionListComponent implements OnInit {
   auctions: Auction[] = [];
+  activeAuctions: Auction[] = [];
   currentCategoryId!: number;
   previousCategoryId: number = 1;
   currentCategoryName: any;
@@ -32,6 +33,7 @@ export class AuctionListComponent implements OnInit {
     this.route.paramMap.subscribe(() => {
       this.listAuctions();
     });
+    this.getActiveAuctions();
   }
 
   listAuctions() {
@@ -89,6 +91,12 @@ export class AuctionListComponent implements OnInit {
   takePart(auction: Auction) {
     const auctionRecord = new Auctionrecord(auction);
     this.recordService.addAuctionRecord(auctionRecord);
+  }
+
+  getActiveAuctions() {
+    this.auctionService.getActiveAuctions().subscribe((data) => {
+      this.activeAuctions = data;
+    });
   }
 
 }
