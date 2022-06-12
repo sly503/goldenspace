@@ -12,7 +12,7 @@ import { AuctionDto } from '../common/auction-dto';
 })
 export class AuctionService {
   private baseUrl = 'http://localhost:8080/api/auctions';
-  //private categoryUrl = 'http://localhost:8080/api/categories';
+  private categoryUrl2 = 'http://localhost:8080/api/categories';
   private categoryUrl = 'http://localhost:8080/categories/all';
   private PostUrl = 'http://localhost:8080/auction';
   private searchUrl = "http://localhost:8080/auctions/search"
@@ -53,6 +53,14 @@ export class AuctionService {
     return this.httpClient
       .get<any>(this.categoryUrl)
       .pipe(map((response) => response.data));
+  }
+
+
+
+  getAuctionCategories2(): Observable<Category[]> {
+    return this.httpClient
+      .get<GetResponseCategory>(this.categoryUrl2)
+      .pipe(map((response) => response._embedded.categories));
   }
 
   private getAuctions(searchUrl: string): Observable<Auction[]> {

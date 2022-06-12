@@ -83,6 +83,10 @@
                   <label for="bid-amount">Bid Amount</label>
                   <input type="number" class="form-control" id="bid-amount" placeholder="Enter amount" [(ngModel)]="bid.price">
                 </div>
+                <div class="form-group">
+                  <label for="email">Your Email</label>
+                  <input type="email" class="form-control" id="email" placeholder="Enter your email" [(ngModel)]="bid.email">
+                </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>

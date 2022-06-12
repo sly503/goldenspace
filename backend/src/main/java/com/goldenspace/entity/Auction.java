@@ -27,8 +27,12 @@ public class Auction {
     @JoinColumn(name = "category_id", nullable = false, updatable = false, insertable = false)
     private Category category;
 
+
     @Column(name = "name")
     private String name;
+
+    @Column(name = "winner_email")
+    private String winnerEmail;
 
     @Column(name = "description")
     private String description;
@@ -158,6 +162,15 @@ public class Auction {
         this.bids = bids;
     }
 
+    public String getWinnerEmail() {
+        return winnerEmail;
+    }
+
+    public void setWinnerEmail(String winnerEmail) {
+        this.winnerEmail = winnerEmail;
+    }
+
+    
     public void addBid(Bid bid) {
         // if bid is not null and bid is not equal or lower than current price
         if (bid != null && bid.getPrice().compareTo(currentPrice) > 0) {
@@ -165,6 +178,10 @@ public class Auction {
             bid.setAuction(this);
             bids.add(bid);
         }
+    }
+
+    public void setCategoryId(Long categoryId2) {
+        this.categoryId = categoryId2;
     }
 
     // @Column(name = "city")

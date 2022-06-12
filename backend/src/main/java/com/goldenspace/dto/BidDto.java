@@ -8,6 +8,7 @@ public class BidDto {
     private Long id;
     private Long auctionId;
     private BigDecimal price;
+    private String email;
     
 
     public Long getId() {
@@ -35,7 +36,15 @@ public class BidDto {
         this.price = price;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    
 
 
 }

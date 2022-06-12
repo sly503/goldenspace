@@ -15,9 +15,9 @@ import com.goldenspace.dto.ServiceResponse;
 import com.goldenspace.entity.Auction;
 import com.goldenspace.entity.Bid;
 import com.goldenspace.entity.Category;
+import com.goldenspace.entity.Mail;
 import com.goldenspace.entity.Status;
 
-import org.springframework.data.domain.Page;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -30,13 +30,14 @@ public class AuctionService {
     AuctionRepository auctionRepository;
     BidRepository bidRepository;
     CategoryRepository categoryRepository;
-
+    MailService mailService;
     // constructor
     public AuctionService(AuctionRepository auctionRepository, BidRepository bidRepository,
-            CategoryRepository categoryRepository) {
+            CategoryRepository categoryRepository,MailService mailService) {
         this.auctionRepository = auctionRepository;
         this.bidRepository = bidRepository;
         this.categoryRepository = categoryRepository;
+        this.mailService = mailService;
 
     }
 
@@ -69,6 +70,16 @@ public class AuctionService {
                 else {
                     // set auction sold price to highest bid price
                     auction.setSoldPrice(auction.getBids().get(auction.getBids().size() - 1).getPrice());
+                    System.out.println("Auction is Sold with price: " + auction.getSoldPrice()+" and winner email: "+auction.getWinnerEmail());
+                    //send email
+                    String winnerEmail = auction.getWinnerEmail();
+		Mail mail = new Mail();
+        mail.setMailFrom("goldenspace.auctions@gmail.com");
+        mail.setMailTo(winnerEmail);
+        mail.setMailSubject("You won the" + auction.getName());
+        mail.setMailContent("You won the" + auction.getName() + "with price: " + auction.getSoldPrice()
+        + "You have to pay the price or face the consequences");
+        mailService.sendEmail(mail);
                     // set auction status to sold
                     auction.setStatus(Status.SOLD);
                 }
@@ -93,6 +104,7 @@ public class AuctionService {
             newBid.setPrice(bid.getPrice());
             newBid.setAuction(auction);
             bidRepository.save(newBid);
+            auction.setWinnerEmail(bid.getEmail());
             auction.addBid(newBid);
             auctionRepository.save(auction);
         } else {
@@ -116,7 +128,7 @@ public class AuctionService {
             auction.setEndDate(auctionCreate.getEndDate());
             auction.setInitialPrice(auctionCreate.getInitialPrice());
             auction.setCurrentPrice(auctionCreate.getInitialPrice());
-            auction.setCategory(category);
+            auction.setCategoryId(auctionCreate.getCategoryId());
             auction.setStatus(Status.ACTIVE);
             auctionRepository.save(auction);
         } else {
@@ -142,9 +154,20 @@ public class AuctionService {
             // auction status to sold and sold price to highest bid price
             if (auction.getStatus() == Status.ACTIVE && auction.getEndDate().before(currentDate)) {
                 if (auction.getBids().size() > 0) {
+                    auction.setWinnerEmail(auction.getBids().get(auction.getBids().size() - 1).getEmail());
                     auction.setStatus(Status.SOLD);
                     auction.setSoldPrice(auction.getBids().get(auction.getBids().size() - 1).getPrice());
-                    System.out.println("Auction is Sold with price: " + auction.getSoldPrice());
+                    System.out.println("Auction is Sold with price: " + auction.getSoldPrice()+" and winner email: "+auction.getWinnerEmail());
+                    //send email
+                    String winnerEmail = auction.getWinnerEmail();
+		Mail mail = new Mail();
+        mail.setMailFrom("goldenspace.auctions@gmail.com");
+        mail.setMailTo(winnerEmail);
+        mail.setMailSubject("You won the" + auction.getName());
+        mail.setMailContent("You won the" + auction.getName() + "with price: " + auction.getSoldPrice()
+        + "You have to pay the price or face the consequences");
+        mailService.sendEmail(mail);
+
                 }
             }
             // if auction has no bids and end date is in the past and auction is active set

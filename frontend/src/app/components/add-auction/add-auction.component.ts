@@ -14,7 +14,7 @@ import { Category } from 'src/app/common/category';
 export class AddAuctionComponent implements OnInit {
   auctionDto: AuctionDto = new AuctionDto();
   //categorie list
-  categories: Category[] = [];
+  categories!: Category[];
   closeResult!: string;
 
   constructor(
@@ -23,11 +23,11 @@ export class AddAuctionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.listAuctionCategories();
+    this.listAuctionCategories2();
   }
 
-  listAuctionCategories() {
-    this.auctionService.getAuctionCategories().subscribe((data) => {
+  listAuctionCategories2() {
+    this.auctionService.getAuctionCategories2().subscribe((data) => {
       console.log('Auction categories=' + JSON.stringify(data));
       this.categories = data;
     });

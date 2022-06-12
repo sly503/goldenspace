@@ -29,6 +29,9 @@ public class Bid {
     @Column(name = "price")
     private BigDecimal price;
 
+    @Column(name = "email")
+    private String email;
+
     // (DateTime or date )
     @Column(name = "bid_time")
     @CreationTimestamp
@@ -52,4 +55,17 @@ public class Bid {
         this.auction = auction2;
     }
 
+    public Auction getAuction() {
+        return this.auction;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    
 }
