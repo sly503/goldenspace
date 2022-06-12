@@ -20,8 +20,11 @@ public class Auction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "category_id")
+    protected Long categoryId;
+
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id", nullable = false, updatable = false, insertable = false)
     private Category category;
 
     @Column(name = "name")
@@ -47,7 +50,7 @@ public class Auction {
     private BigDecimal soldPrice;
 
     @Lob
-    @Column(name = "image_url",columnDefinition = "MEDIUMBLOB")
+    @Column(name = "image_url", columnDefinition = "MEDIUMBLOB")
     private String imageUrl;
 
     @Column(name = "status")
@@ -59,151 +62,101 @@ public class Auction {
     @JsonIgnore
     private List<Bid> bids;
 
-   
-
     public Long getId() {
         return id;
     }
-
-
 
     public void setId(Long id) {
         this.id = id;
     }
 
-
-
     public Category getCategory() {
         return category;
     }
-
-
 
     public void setCategory(Category category) {
         this.category = category;
     }
 
-
-
     public String getName() {
         return name;
     }
-
-
 
     public void setName(String name) {
         this.name = name;
     }
 
-
-
     public String getDescription() {
         return description;
     }
-
-
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-
-
     public Date getStartDate() {
         return startDate;
     }
-
-
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-
-
     public Date getEndDate() {
         return endDate;
     }
-
-
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
-
-
     public BigDecimal getInitialPrice() {
         return initialPrice;
     }
-
-
 
     public void setInitialPrice(BigDecimal initialPrice) {
         this.initialPrice = initialPrice;
     }
 
-
-
     public BigDecimal getCurrentPrice() {
         return currentPrice;
     }
-
-
 
     public void setCurrentPrice(BigDecimal currentPrice) {
         this.currentPrice = currentPrice;
     }
 
-
-
     public BigDecimal getSoldPrice() {
         return soldPrice;
     }
-
-
 
     public void setSoldPrice(BigDecimal soldPrice) {
         this.soldPrice = soldPrice;
     }
 
-
-
     public String getImageUrl() {
         return imageUrl;
     }
-
-
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
-
-
     public Status getStatus() {
         return status;
     }
-
-
 
     public void setStatus(Status status) {
         this.status = status;
     }
 
-
-
     public List<Bid> getBids() {
         return bids;
     }
 
-
-
     public void setBids(List<Bid> bids) {
         this.bids = bids;
     }
-
-
 
     public void addBid(Bid bid) {
         // if bid is not null and bid is not equal or lower than current price

@@ -39,7 +39,7 @@
   <div>
     <!-- message if no auctions are found -->
     <div *ngIf="auctions.length === 0" class="col-12 text-center">
-      <h3>No auctions found</h3>
+      <h3>No Auctions found</h3>
     </div>
 
   </div>
@@ -76,8 +76,10 @@
             </a>
             <h5 class="fw-normal">{{auction.description}}</h5>
             <!-- Product price-->
-            Current Price: {{ auction.currentPrice | currency:'USD'}} | Starting Price: {{ auction.initialPrice|
-            currency:'USD'}}
+            Current Price: {{ auction.currentPrice | currency:'USD'}} <br>
+            Starting Price: {{ auction.initialPrice| currency: 'USD'}
+            <br>
+            Ending Date: {{auction.endDate| date}}
           </div>
         </div>
         <!-- Product actions-->
@@ -100,3 +102,4 @@
 
   </div>
 </div>
+<app-add-auction></app-add-auction>

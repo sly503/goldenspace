@@ -18,66 +18,69 @@
                 </div>
               </div>
             </div>
-
-
           </div>
+
+
           <!-- col end -->
           <div class="col-lg-7 mt-5">
               <div class="card">
                   <div class="card-body">
                       <h1 class="h2">{{auction.name}}</h1>
-                      <p class="h3 py-2">{{auction.currentPrice}}</p>
-                      <p class="h3 py-5">{{auction.initialPrice}}</p>
-                      <p class="py-2">
-                          <i class="fa fa-star text-warning"></i>
-                          <i class="fa fa-star text-warning"></i>
-                          <i class="fa fa-star text-warning"></i>
-                          <i class="fa fa-star text-warning"></i>
-                          <i class="fa fa-star text-secondary"></i>
-                          <span class="list-inline-item text-dark">Rating 4.8 | 36 Comments</span>
-                      </p>
+                      <p class="h5 py-2">Current Price: {{auction.currentPrice}}  </p>
+                      <p class="h5 py-5">Initial Price:  {{auction.initialPrice}}  </p>
+
                       <ul class="list-inline">
                           <li class="list-inline-item">
-                              <h6>{{auction.startDate}}</h6>
+                              <h5><strong>Start date: {{auction.startDate | date}}</strong></h5>
                           </li>
+                          <br>
                           <li class="list-inline-item">
-                              <p class="text-muted"><strong>{{auction.endDate}}</strong></p>
+                              <h5><strong>End date: {{auction.endDate| date}}</strong></h5>
                           </li>
                       </ul>
 
-                      <h6>Description:</h6>
+                      <h4><strong>Description:</strong></h4>
                       <p>{{auction.description}}</p>
-                      <h6>Auction Status</h6>
+                      <br>
+                      <h4><strong>Auction Status</strong></h4>
                       <p>{{auction.status}}</p>
+                      <p class="py-2">
+                        <i class="fa fa-star text-warning"></i>
+                        <i class="fa fa-star text-warning"></i>
+                        <i class="fa fa-star text-warning"></i>
+                        <i class="fa fa-star text-warning"></i>
+                        <i class="fa fa-star text-secondary"></i>
+                        <span class="list-inline-item text-dark">Rating 4.8 | 36 Comments</span>
+                    </p>
                         <div class="col d-grid">
                           <button class="btn btn-outline-warning bg-dark" (click)="open(content)">
-                            <i id="bid-icon" class="fa fa-dollar"></i> add bid </button>
+                            <i id="bid-icon" class="fa fa-dollar"></i> Add Bid </button>
                         </div>
                         <div class="col d-grid">
-                          <a class="btn btn-outline-dark mt-auto" routerLink="/auctions/">Back to auctions</a>
+                          <a class="btn btn-outline-dark mt-auto" routerLink="/auctions/">Back to Auctions</a>
                         </div>  <br>
                         <!--remove auction -->
                         <!--if auction status is Active show this button-->
                         <div *ngIf="auction.status == 'ACTIVE'" class="col d-grid">
                           <button class="btn btn-outline-danger bg-dark" (click)="closeAuction()">
-                            <i id="bid-icon" class="fa fa-trash"></i>Close auction </button>
+                            <i id="bid-icon" class="fa fa-trash"></i>Close Auction </button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
+            </div>
             <!-- modal ng template -->
             <ng-template #content let-c="close" let-d="dismiss">
               <div class="modal-header">
-                <h4 class="modal-title">Add bid</h4>
+                <h4 class="modal-title">Add Bid</h4>
                 <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label for="bid-amount">Bid amount</label>
+                  <label for="bid-amount">Bid Amount</label>
                   <input type="number" class="form-control" id="bid-amount" placeholder="Enter amount" [(ngModel)]="bid.price">
                 </div>
               </div>
@@ -86,3 +89,4 @@
                 <button type="button" class="btn btn-outline-dark" (click)="addBid2(bid)">Save changes</button>
               </div>
             </ng-template>
+

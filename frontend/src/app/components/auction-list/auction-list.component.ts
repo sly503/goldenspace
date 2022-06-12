@@ -34,6 +34,7 @@ export class AuctionListComponent implements OnInit {
       this.listAuctions();
     });
     this.getActiveAuctions();
+    console.log(this.activeAuctions)
   }
 
   listAuctions() {
@@ -70,13 +71,13 @@ export class AuctionListComponent implements OnInit {
 
     console.log(this.currentCategoryId);
     // now get the products for the given category id
-    this.auctionService
-      .getAuctionListPaginate(
-        this.thePageNumber - 1,
-        this.thePageSize,
-        this.currentCategoryId
-      )
-      .subscribe(this.processResult());
+    // this.auctionService
+    //   .getAuctionListPaginate(
+    //     this.thePageNumber - 1,
+    //     this.thePageSize,
+    //     this.currentCategoryId
+    //   )
+    //   .subscribe(this.processResult());
   }
 
   processResult() {

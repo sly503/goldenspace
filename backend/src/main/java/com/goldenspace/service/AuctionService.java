@@ -1,6 +1,7 @@
 package com.goldenspace.service;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -8,6 +9,7 @@ import com.goldenspace.dao.AuctionRepository;
 import com.goldenspace.dao.BidRepository;
 import com.goldenspace.dao.CategoryRepository;
 import com.goldenspace.dto.AuctionCreate;
+import com.goldenspace.dto.AuctionFilter;
 import com.goldenspace.dto.BidDto;
 import com.goldenspace.dto.ServiceResponse;
 import com.goldenspace.entity.Auction;
@@ -15,6 +17,7 @@ import com.goldenspace.entity.Bid;
 import com.goldenspace.entity.Category;
 import com.goldenspace.entity.Status;
 
+import org.springframework.data.domain.Page;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -122,24 +125,32 @@ public class AuctionService {
         return result.equals("ok") ? ServiceResponse.success("Auction added") : ServiceResponse.error(result);
     }
 
-    // scheduled run every 1 min
-    @Scheduled(fixedRate = 10000)
+    public ServiceResponse<List<Auction>> filter(AuctionFilter filter) {
+        return ServiceResponse.success(auctionRepository.filter(filter.getQuery(), filter.getCategoryId()));
+    }
+
+    // scheduled run every 10 min
+    @Scheduled(fixedRate = 100000)
     public void updateAuction() {
         Date currentDate = new Date();
         System.out.println("Date 1: " + currentDate);
-        // check if auction end date is in the past and auction is active and auction has bids
+        // check if auction end date is in the past and auction is active and auction
+        // has bids
         // if so set auction status to sold else set auction status to unsold
         for (Auction auction : auctionRepository.findAll()) {
-            //if auction has bids and end date is in the past and auction is active set auction status to sold and sold price to highest bid price
+            // if auction has bids and end date is in the past and auction is active set
+            // auction status to sold and sold price to highest bid price
             if (auction.getStatus() == Status.ACTIVE && auction.getEndDate().before(currentDate)) {
-                            if (auction.getBids().size() > 0) {
+                if (auction.getBids().size() > 0) {
                     auction.setStatus(Status.SOLD);
                     auction.setSoldPrice(auction.getBids().get(auction.getBids().size() - 1).getPrice());
                     System.out.println("Auction is Sold with price: " + auction.getSoldPrice());
                 }
             }
-            //if auction has no bids and end date is in the past and auction is active set auction status to unsold
-            else if (auction.getStatus() == Status.ACTIVE && auction.getEndDate().before(currentDate) && auction.getBids().size() == 0) {
+            // if auction has no bids and end date is in the past and auction is active set
+            // auction status to unsold
+            else if (auction.getStatus() == Status.ACTIVE && auction.getEndDate().before(currentDate)
+                    && auction.getBids().size() == 0) {
                 auction.setStatus(Status.UNSOLD);
                 System.out.println("Auction is Unsold");
             }
