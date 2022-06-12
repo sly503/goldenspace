@@ -11,7 +11,6 @@ export class AuctionSearchComponent implements OnInit {
 
   ngOnInit(): void {}
   doSearch(value: String) {
-    console.log(value);
-    this.router.navigateByUrl(`/search/${value}`);
+    this.router.navigateByUrl(`/auctions/${value}`);
   }
 }

@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -22,15 +24,16 @@ public class Category {
     private Long id;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+    @JsonIgnore
     private List<Auction> auctions;
 
-    //@Column(name = "parent_id")
-    //private Long parentId;
+    // @Column(name = "parent_id")
+    // private Long parentId;
 
     @Column(name = "category_name")
     private String categoryName;
 
-    //@Column(name = "category_image_url")
-    //private String categoryImageUrl;
+    // @Column(name = "category_image_url")
+    // private String categoryImageUrl;
 
 }

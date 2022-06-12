@@ -30,6 +30,16 @@ import { NewsComponent } from './components/news/news.component';
 import { NewsDetailsComponent } from './components/news/news-details/news-details.component';
 import { AddNewsComponent } from './components/news/add-news/add-news.component';
 import { Ad4newsComponent } from './components/news/ad4news/ad4news.component';
+import { AboutComponent } from './components/about/about.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { AuctionspageComponent } from './components/pages/auctionspage/auctionspage.component';
+import { AuctiondetailpageComponent } from './components/pages/auctiondetailpage/auctiondetailpage.component';
+import { NewsdetailpageComponent } from './components/pages/newsdetailpage/newsdetailpage.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HomepageComponent } from './components/pages/homepage/homepage.component';
+import { ActiveauctionsComponent } from './components/pages/homepage/activeauctions/activeauctions.component';
+import { FinishedauctionsComponent } from './components/pages/homepage/finishedauctions/finishedauctions.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +55,18 @@ import { Ad4newsComponent } from './components/news/ad4news/ad4news.component';
     NewsComponent,
     NewsDetailsComponent,
     AddNewsComponent,
-    Ad4newsComponent
+    Ad4newsComponent,
+    AboutComponent,
+    ContactComponent,
+    AuctionspageComponent,
+    AuctiondetailpageComponent,
+    NewsdetailpageComponent,
+    HeaderComponent,
+    FooterComponent,
+    HomepageComponent,
+    ActiveauctionsComponent,
+    FinishedauctionsComponent,
+    NewsComponent
   ],
 
   imports: [
@@ -68,11 +89,7 @@ import { Ad4newsComponent } from './components/news/ad4news/ad4news.component';
     FormsModule
   ],
   providers: [
-    AuctionService,
-    AuctionCategoryMenuComponent,
-    AuctionDetailsComponent,
-    AuctionListComponent,
-    AuctionSearchComponent,
+    AuctionService
   ],
   bootstrap: [AppComponent],
 })

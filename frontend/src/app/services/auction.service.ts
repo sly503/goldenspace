@@ -12,21 +12,25 @@ import { AuctionDto } from '../common/auction-dto';
 })
 export class AuctionService {
   private baseUrl = 'http://localhost:8080/api/auctions';
-  private categoryUrl = 'http://localhost:8080/api/categories';
+  //private categoryUrl = 'http://localhost:8080/api/categories';
+  private categoryUrl = 'http://localhost:8080/categories/all';
   private PostUrl = 'http://localhost:8080/auction';
+  private searchUrl = "http://localhost:8080/auctions/search"
 
   constructor(private httpClient: HttpClient) {}
 
   getAuctionListPaginate(
-    thePage: number,
-    thePageSize: number,
-    theCategoryId: number
-  ): Observable<GetResponseAuctions> {
-    const searchUrl =
-      `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}` +
-      `&page=${thePage}&size=${thePageSize}`;
+    query?: string,
+    categoryId?: number
+  ): Observable<any> {
 
-    return this.httpClient.get<GetResponseAuctions>(searchUrl);
+    return this.httpClient
+    .post<any>(this.searchUrl,{"categoryId": categoryId, "query": query}).pipe(map((response) =>  response.data));
+  }
+
+  searchAuctions(theKeyword: string): Observable<Auction[]> {
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`;
+    return this.getAuctions(searchUrl);
   }
 
   getAuctionList(categoryId: number): Observable<Auction[]> {
@@ -47,13 +51,8 @@ export class AuctionService {
 
   getAuctionCategories(): Observable<Category[]> {
     return this.httpClient
-      .get<GetResponseCategory>(this.categoryUrl)
-      .pipe(map((response) => response._embedded.categories));
-  }
-
-  searchAuctions(theKeyword: string): Observable<Auction[]> {
-    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`;
-    return this.getAuctions(searchUrl);
+      .get<any>(this.categoryUrl)
+      .pipe(map((response) => response.data));
   }
 
   private getAuctions(searchUrl: string): Observable<Auction[]> {
@@ -91,6 +90,13 @@ export class AuctionService {
 
   getActiveAuctions() {
     const url = `http://localhost:8080/api/auctions/search/findByStatus?status=ACTIVE`;
+    return this.httpClient
+      .get<GetResponseAuctions>(url)
+      .pipe(map((response: any) => response._embedded.auctions));
+  }
+
+  getFinishedAuctions() {
+    const url = `http://localhost:8080/api/auctions/search/findByStatus?status=SOLD`;
     return this.httpClient
       .get<GetResponseAuctions>(url)
       .pipe(map((response: any) => response._embedded.auctions));
