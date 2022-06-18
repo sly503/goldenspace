@@ -13,7 +13,7 @@ import com.goldenspace.service.CategoryService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin
 @AllArgsConstructor
 public class CategoryController {
     protected CategoryService categoryService;

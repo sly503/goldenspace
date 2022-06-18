@@ -13,7 +13,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin
 public class AuctionController {
 
     AuctionService auctionService;
