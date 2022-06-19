@@ -55,8 +55,6 @@ export class AuctionService {
       .pipe(map((response) => response.data));
   }
 
-
-
   getAuctionCategories2(): Observable<Category[]> {
     return this.httpClient
       .get<GetResponseCategory>(this.categoryUrl2)

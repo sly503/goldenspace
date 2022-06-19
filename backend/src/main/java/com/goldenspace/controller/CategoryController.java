@@ -10,13 +10,17 @@ import com.goldenspace.dto.ServiceResponse;
 import com.goldenspace.entity.Category;
 import com.goldenspace.service.CategoryService;
 
-import lombok.AllArgsConstructor;
-
 @RestController
-@CrossOrigin
-@AllArgsConstructor
+@CrossOrigin(origins = "*")
+
+
 public class CategoryController {
     protected CategoryService categoryService;
+
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
+    
 
     @GetMapping("/categories/all")
     public ServiceResponse<List<Category>> all() {
