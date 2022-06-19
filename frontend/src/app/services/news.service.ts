@@ -8,8 +8,8 @@ import { News } from '../common/news';
 })
 export class NewsService {
 
-  private baseUrl = 'http://localhost:8080/api/news';
-  private postUrl = 'http://localhost:8080/news/addNews';
+  private baseUrl = 'http://auctions.ddns.net:8081/api/news';
+  private postUrl = 'http://auctions.ddns.net:8081/news/addNews';
 
   constructor(private httpClient: HttpClient) {}
 

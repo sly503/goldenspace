@@ -11,11 +11,11 @@ import { AuctionDto } from '../common/auction-dto';
   providedIn: 'root',
 })
 export class AuctionService {
-  private baseUrl = 'http://localhost:8080/api/auctions';
-  private categoryUrl2 = 'http://localhost:8080/api/categories';
-  private categoryUrl = 'http://localhost:8080/categories/all';
-  private PostUrl = 'http://localhost:8080/auction';
-  private searchUrl = "http://localhost:8080/auctions/search"
+  private baseUrl = 'http://auctions.ddns.net:8081/api/auctions';
+  private categoryUrl2 = 'http://auctions.ddns.net:8081/api/categories';
+  private categoryUrl = 'http://auctions.ddns.net:8081/categories/all';
+  private PostUrl = 'http://auctions.ddns.net:8081/auction';
+  private searchUrl = "http://auctions.ddns.net:8081/auctions/search"
 
   constructor(private httpClient: HttpClient) {}
 
@@ -95,14 +95,14 @@ export class AuctionService {
   }
 
   getActiveAuctions() {
-    const url = `http://localhost:8080/api/auctions/search/findByStatus?status=ACTIVE`;
+    const url = `http://auctions.ddns.net:8081/api/auctions/search/findByStatus?status=ACTIVE`;
     return this.httpClient
       .get<GetResponseAuctions>(url)
       .pipe(map((response: any) => response._embedded.auctions));
   }
 
   getFinishedAuctions() {
-    const url = `http://localhost:8080/api/auctions/search/findByStatus?status=SOLD`;
+    const url = `http://auctions.ddns.net:8081/api/auctions/search/findByStatus?status=SOLD`;
     return this.httpClient
       .get<GetResponseAuctions>(url)
       .pipe(map((response: any) => response._embedded.auctions));
