@@ -5,6 +5,6 @@ cd frontend
 ng build --prod
 docker build --tag=auctions-frontend:latest .
 cd backend
-docker run -p 8080:8080 auctions-backend:latest
-cd frotnend
+docker run -p 8081:8081 auctions-backend:latest
+cd frontend
 docker run -p 80:80 auctions-frontend:latest
